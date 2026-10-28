@@ -1,7 +1,7 @@
 /* 
   Daily Morning Page Stylesheet
-  Themes: Dawn (default), Midnight, Daylight
-  Designed for serenity, crisp typography, and mobile/desktop responsiveness
+  Themes: Dark (serene dawn/midnight), Light (crisp daytime)
+  Full bilingual typography: Telugu (Nirmala UI / Gautami) & English (System)
 */
 
 :root {
@@ -17,12 +17,13 @@
   --shadow-glow-gold: 0 0 25px rgba(255, 179, 71, 0.25);
 }
 
-/* 🌅 Dawn Theme (Default: Warm amber sunrise, serene morning sanctuary) */
+/* 🌙 Dark Mode (Default: Serene morning sanctuary with warm amber dawn glow) */
+[data-theme="dark"],
 [data-theme="dawn"] {
   --bg-gradient: radial-gradient(circle at 50% -20%, #2e1a29 0%, #171626 50%, #0d0e17 100%);
-  --bg-card: rgba(26, 26, 42, 0.75);
-  --bg-card-hover: rgba(34, 34, 54, 0.85);
-  --bg-card-inner: rgba(18, 18, 29, 0.65);
+  --bg-card: rgba(26, 26, 42, 0.78);
+  --bg-card-hover: rgba(34, 34, 54, 0.88);
+  --bg-card-inner: rgba(18, 18, 29, 0.68);
   --border-color: rgba(255, 190, 130, 0.15);
   --border-highlight: rgba(255, 170, 90, 0.4);
   --text-primary: #fff2e6;
@@ -35,46 +36,31 @@
   --accent-waning: #84a9ff;
   --btn-primary-bg: linear-gradient(135deg, #ff8c42, #ff5e36);
   --btn-primary-text: #ffffff;
+  --toggle-active-bg: rgba(255, 180, 84, 0.2);
+  --toggle-active-border: rgba(255, 180, 84, 0.45);
 }
 
-/* 🌙 Midnight Theme (Cosmic indigo, starlight, silver-moon) */
-[data-theme="midnight"] {
-  --bg-gradient: radial-gradient(circle at 50% -10%, #151a33 0%, #0b0e1b 50%, #06070d 100%);
-  --bg-card: rgba(19, 24, 43, 0.75);
-  --bg-card-hover: rgba(26, 33, 58, 0.85);
-  --bg-card-inner: rgba(12, 16, 29, 0.7);
-  --border-color: rgba(130, 165, 255, 0.15);
-  --border-highlight: rgba(160, 190, 255, 0.4);
-  --text-primary: #eef3ff;
-  --text-secondary: #a9b7d8;
-  --text-muted: #6a7799;
-  --accent-gold: #ffd166;
-  --accent-glow: #8ecae6;
-  --accent-saffron: #64b5f6;
-  --accent-waxing: #06d6a0;
-  --accent-waning: #90caf9;
-  --btn-primary-bg: linear-gradient(135deg, #3f51b5, #1e88e5);
-  --btn-primary-text: #ffffff;
-}
-
-/* ☀️ Daylight Theme (Crisp, luminous, energizing) */
+/* ☀️ Light Mode (Clean, luminous, energizing daytime) */
+[data-theme="light"],
 [data-theme="daylight"] {
-  --bg-gradient: radial-gradient(circle at 50% -20%, #fef5ea 0%, #f4ede3 50%, #eae3d7 100%);
-  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-gradient: radial-gradient(circle at 50% -20%, #fff7ed 0%, #f7f1e6 50%, #ece5d8 100%);
+  --bg-card: rgba(255, 255, 255, 0.92);
   --bg-card-hover: rgba(255, 255, 255, 0.98);
-  --bg-card-inner: rgba(245, 240, 232, 0.7);
-  --border-color: rgba(180, 140, 100, 0.2);
+  --bg-card-inner: rgba(246, 241, 233, 0.8);
+  --border-color: rgba(180, 140, 100, 0.22);
   --border-highlight: rgba(230, 120, 30, 0.45);
-  --text-primary: #2b231d;
-  --text-secondary: #5c4e43;
-  --text-muted: #8c7e73;
-  --accent-gold: #c97a14;
+  --text-primary: #231c17;
+  --text-secondary: #54463c;
+  --text-muted: #84766c;
+  --accent-gold: #b86a08;
   --accent-glow: #d9531e;
   --accent-saffron: #d9531e;
-  --accent-waxing: #2e7d32;
-  --accent-waning: #1565c0;
+  --accent-waxing: #207227;
+  --accent-waning: #1258a8;
   --btn-primary-bg: linear-gradient(135deg, #e65100, #f57c00);
   --btn-primary-text: #ffffff;
+  --toggle-active-bg: rgba(230, 81, 0, 0.15);
+  --toggle-active-border: rgba(230, 81, 0, 0.4);
 }
 
 * {
@@ -93,6 +79,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Telugu typography refinement when site is in Telugu mode */
+body[data-lang="te"] {
+  font-family: var(--font-telugu), var(--font-main);
+}
+
 .app-wrapper {
   max-width: 1320px;
   margin: 0 auto;
@@ -106,7 +97,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 16px 24px;
+  padding: 18px 24px;
   background: var(--bg-card);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -123,19 +114,20 @@ body {
 }
 
 .brand-icon {
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, rgba(255, 158, 68, 0.2), rgba(255, 87, 34, 0.1));
   border: 1px solid var(--border-highlight);
+  flex-shrink: 0;
 }
 
 .brand-icon img {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
 }
 
 .app-title {
@@ -145,6 +137,7 @@ body {
   background: linear-gradient(135deg, var(--text-primary), var(--accent-gold));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  line-height: 1.25;
 }
 
 .app-greeting {
@@ -172,7 +165,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: 0.85rem;
+  font-size: 0.86rem;
   color: var(--text-secondary);
 }
 
@@ -188,7 +181,8 @@ body {
 .controls-section {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .city-select-wrap {
@@ -200,7 +194,7 @@ body {
   background: var(--bg-card-inner);
   color: var(--text-primary);
   border: 1px solid var(--border-color);
-  padding: 8px 32px 8px 12px;
+  padding: 8px 30px 8px 12px;
   border-radius: var(--border-radius-sm);
   font-size: 0.88rem;
   cursor: pointer;
@@ -212,23 +206,43 @@ body {
   border-color: var(--accent-gold);
 }
 
-.theme-toggle-btn {
+/* 2 Prominent Toggles: Dark/Light Mode & Language */
+.header-toggles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-toggle-btn {
   background: var(--bg-card-inner);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   padding: 8px 14px;
   border-radius: var(--border-radius-sm);
   font-size: 0.88rem;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
   transition: var(--transition-smooth);
+  user-select: none;
 }
 
-.theme-toggle-btn:hover {
+.header-toggle-btn:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-highlight);
+  transform: translateY(-1px);
+}
+
+.header-toggle-btn.active {
+  background: var(--toggle-active-bg);
+  border-color: var(--toggle-active-border);
+  color: var(--accent-gold);
+}
+
+.btn-icon {
+  font-size: 1.05rem;
 }
 
 /* ---------------- Date Navigation Strip ---------------- */
@@ -376,7 +390,7 @@ body {
 }
 
 .telugu-sub {
-  font-family: var(--font-telugu);
+  font-family: var(--font-telugu), var(--font-main);
   font-size: 0.95rem;
   color: var(--accent-gold);
   font-weight: 500;
@@ -542,7 +556,7 @@ body {
 }
 
 .tithi-telugu {
-  font-family: var(--font-telugu);
+  font-family: var(--font-telugu), var(--font-main);
   font-size: 1.05rem;
   color: var(--text-primary);
   margin-bottom: 10px;
@@ -692,7 +706,7 @@ body {
 }
 
 .telugu-label {
-  font-family: var(--font-telugu);
+  font-family: var(--font-telugu), var(--font-main);
   font-size: 0.85rem;
   color: var(--text-secondary);
 }
@@ -726,6 +740,7 @@ body {
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 20px;
+  text-decoration: none;
 }
 
 .channel-dot {
@@ -810,7 +825,7 @@ body {
 .video-wrapper-16-9 {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 aspect ratio */
+  padding-top: 56.25%;
   background: #000;
   border-radius: var(--border-radius-md);
   overflow: hidden;
@@ -1155,7 +1170,7 @@ body {
 
   .top-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
   }
 
   .clock-section {
@@ -1166,6 +1181,16 @@ body {
   .controls-section {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .header-toggles {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .header-toggle-btn {
+    flex: 1;
+    justify-content: center;
   }
 
   .moon-hero-display {

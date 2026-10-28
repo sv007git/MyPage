@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dawn">
+<html lang="en" data-theme="dark" data-lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
           <img src="assets/favicon.svg" alt="Morning Sun & Moon" />
         </div>
         <div>
-          <h1 class="app-title">Prabhata • ప్రభాత దర్శనం</h1>
+          <h1 class="app-title" data-i18n="appTitle">Prabhata • ప్రభాత దర్శనం</h1>
           <p class="app-greeting" id="greeting-text">శుభోదయం • Good Morning! 🌅</p>
         </div>
       </div>
@@ -32,23 +32,33 @@
       </div>
 
       <div class="controls-section">
+        <!-- City Selector -->
         <div class="city-select-wrap">
-          <select id="city-select" class="city-select" title="Select your city for sunrise & Vedic timings">
+          <select id="city-select" class="city-select" title="Select your city / మీ నగరాన్ని ఎంచుకోండి">
             <!-- Cities populated by JavaScript -->
           </select>
         </div>
-        <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Theme (Dawn / Midnight / Daylight)">
-          🌅 <span class="theme-label">Dawn</span>
-        </button>
+
+        <!-- 2 Prominent Toggle Buttons: Dark/Light Mode & Language -->
+        <div class="header-toggles">
+          <button id="theme-toggle-btn" class="header-toggle-btn" title="Toggle Dark / Light Mode (Shortcut: D)">
+            <span class="btn-icon" id="theme-btn-icon">☀️</span>
+            <span id="theme-btn-label">Light Mode</span>
+          </button>
+          <button id="lang-toggle-btn" class="header-toggle-btn" title="తెలుగు / English భాష మార్చండి (Shortcut: L)">
+            <span class="btn-icon">🌐</span>
+            <span id="lang-btn-label">తెలుగు</span>
+          </button>
+        </div>
       </div>
     </header>
 
     <!-- Date Navigation Strip -->
     <nav class="date-nav-strip">
       <div class="date-nav-controls">
-        <button id="prev-day-btn" class="nav-btn" title="Previous Day ([)">◀ Prev Day</button>
-        <button id="today-btn" class="nav-btn today-btn" title="Jump to Today (T)">Today</button>
-        <button id="next-day-btn" class="nav-btn" title="Next Day (])">Next Day ▶</button>
+        <button id="prev-day-btn" class="nav-btn" data-i18n="prevDay" title="Previous Day ([)">◀ Prev Day</button>
+        <button id="today-btn" class="nav-btn today-btn" data-i18n="today" title="Jump to Today (T)">Today</button>
+        <button id="next-day-btn" class="nav-btn" data-i18n="nextDay" title="Next Day (])">Next Day ▶</button>
       </div>
 
       <div class="date-input-wrap">
@@ -56,8 +66,8 @@
         <input type="date" id="date-picker" title="Pick any calendar date to view its moon phase and tithi">
       </div>
 
-      <div class="shortcuts-hint">
-        Shortcuts: <kbd>T</kbd> Today • <kbd>[</kbd> Prev • <kbd>]</kbd> Next • <kbd>D</kbd> Theme
+      <div class="shortcuts-hint" id="shortcuts-hint">
+        Shortcuts: <kbd>T</kbd> Today • <kbd>[</kbd> Prev • <kbd>]</kbd> Next • <kbd>D</kbd> Dark/Light • <kbd>L</kbd> Language
       </div>
     </nav>
 
@@ -72,9 +82,9 @@
           <div class="card-header">
             <div class="card-title-group">
               <span>🌕</span>
-              <h2>Hindu Calendar & Moon Phase</h2>
+              <h2 data-i18n="panchangTitle">Hindu Calendar & Moon Phase</h2>
             </div>
-            <span class="telugu-sub">పంచాంగం & చంద్ర కళ</span>
+            <span class="telugu-sub" data-i18n="panchangSub">పంచాంగం & చంద్ర కళ</span>
           </div>
 
           <!-- Moon Visualizer & Status -->
@@ -86,8 +96,8 @@
               <div id="paksha-badge" class="paksha-badge waxing">
                 <span class="paksha-icon">🌓</span>
                 <div class="paksha-info">
-                  <span class="paksha-type">WAXING PHASE</span>
-                  <strong class="paksha-name">Shukla Paksha (శుక్ల పక్షం)</strong>
+                  <span class="paksha-type" id="paksha-type-label">WAXING PHASE</span>
+                  <strong class="paksha-name" id="paksha-name-label">Shukla Paksha (శుక్ల పక్షం)</strong>
                 </div>
               </div>
 
@@ -102,7 +112,7 @@
           <!-- Tithi Spotlight Box -->
           <div class="tithi-highlight-box">
             <div class="tithi-header">
-              <span class="tithi-label">Current Tithi (తిథి)</span>
+              <span class="tithi-label" data-i18n="tithiLabel">Current Tithi (తిథి)</span>
               <span class="tithi-name" id="tithi-name">--</span>
             </div>
             <div class="tithi-telugu" id="tithi-telugu">--</div>
@@ -115,19 +125,19 @@
           <!-- 4-Slot Panchang Meta Grid -->
           <div class="panchang-meta-grid">
             <div class="meta-slot">
-              <span class="meta-label">Nakshatra (నక్షత్రం)</span>
+              <span class="meta-label" data-i18n="nakshatraLabel">Nakshatra (నక్షత్రం)</span>
               <div class="meta-value" id="nakshatra-name">--</div>
             </div>
             <div class="meta-slot">
-              <span class="meta-label">Masa / Month (మాసం)</span>
+              <span class="meta-label" data-i18n="masaLabel">Masa / Month (మాసం)</span>
               <div class="meta-value" id="masa-name">--</div>
             </div>
             <div class="meta-slot">
-              <span class="meta-label">Vaasara / Day (వారం)</span>
+              <span class="meta-label" data-i18n="vaaramLabel">Vaasara / Day (వారం)</span>
               <div class="meta-value" id="vaaram-name">--</div>
             </div>
             <div class="meta-slot">
-              <span class="meta-label">Yoga & Karana (యోగం, కరణం)</span>
+              <span class="meta-label" data-i18n="yogaKaranaLabel">Yoga & Karana (యోగం, కరణం)</span>
               <div class="meta-value">
                 <span id="yoga-name">--</span> • <span id="karana-name">--</span>
               </div>
@@ -145,25 +155,25 @@
           <div class="card-header">
             <div class="card-title-group">
               <span>🌅</span>
-              <h3>Vedic Timings & Muhurthams</h3>
+              <h3 data-i18n="timingsTitle">Vedic Timings & Muhurthams</h3>
             </div>
-            <span class="telugu-sub">సూర్యోదయం & ముహూర్తాలు</span>
+            <span class="telugu-sub" data-i18n="timingsSub">సూర్యోదయం & ముహూర్తాలు</span>
           </div>
 
           <div class="timings-overview">
             <div class="timing-bubble">
               <div class="bubble-icon">☀️</div>
-              <div class="bubble-label">Sunrise</div>
+              <div class="bubble-label" data-i18n="sunrise">Sunrise</div>
               <div class="bubble-time" id="sunrise-time">--:--</div>
             </div>
             <div class="timing-bubble">
               <div class="bubble-icon">🌇</div>
-              <div class="bubble-label">Sunset</div>
+              <div class="bubble-label" data-i18n="sunset">Sunset</div>
               <div class="bubble-time" id="sunset-time">--:--</div>
             </div>
             <div class="timing-bubble">
               <div class="bubble-icon">⏳</div>
-              <div class="bubble-label">Day Length</div>
+              <div class="bubble-label" data-i18n="dayLength">Day Length</div>
               <div class="bubble-time" id="day-length">--h --m</div>
             </div>
           </div>
@@ -171,40 +181,40 @@
           <div class="muhurtham-list">
             <div class="muhurtham-row auspicious">
               <div class="muhurtham-name">
-                <span>🕊️ Brahma Muhurtham</span>
-                <span class="telugu-label">(బ్రహ్మ ముహూర్తం)</span>
+                <span id="label-brahma-muhurtham">🕊️ Brahma Muhurtham</span>
+                <span class="telugu-label" id="sub-brahma-muhurtham">(బ్రహ్మ ముహూర్తం)</span>
               </div>
               <div class="muhurtham-time" id="brahma-muhurtham">--:-- - --:--</div>
             </div>
 
             <div class="muhurtham-row auspicious">
               <div class="muhurtham-name">
-                <span>✨ Abhijit Muhurtham</span>
-                <span class="telugu-label">(అభిజిత్ ముహూర్తం)</span>
+                <span id="label-abhijit-muhurtham">✨ Abhijit Muhurtham</span>
+                <span class="telugu-label" id="sub-abhijit-muhurtham">(అభిజిత్ ముహూర్తం)</span>
               </div>
               <div class="muhurtham-time" id="abhijit-muhurtham">--:-- - --:--</div>
             </div>
 
             <div class="muhurtham-row inauspicious">
               <div class="muhurtham-name">
-                <span>⚠️ Rahu Kalam</span>
-                <span class="telugu-label">(రాహు కాలం)</span>
+                <span id="label-rahu-kalam">⚠️ Rahu Kalam</span>
+                <span class="telugu-label" id="sub-rahu-kalam">(రాహు కాలం)</span>
               </div>
               <div class="muhurtham-time" id="rahu-kalam">--:-- - --:--</div>
             </div>
 
             <div class="muhurtham-row inauspicious">
               <div class="muhurtham-name">
-                <span>⏳ Yamagandam</span>
-                <span class="telugu-label">(యమగండం)</span>
+                <span id="label-yamagandam">⏳ Yamagandam</span>
+                <span class="telugu-label" id="sub-yamagandam">(యమగండం)</span>
               </div>
               <div class="muhurtham-time" id="yamagandam">--:-- - --:--</div>
             </div>
 
             <div class="muhurtham-row">
               <div class="muhurtham-name">
-                <span>🌿 Gulika Kalam</span>
-                <span class="telugu-label">(గుళిక కాలం)</span>
+                <span id="label-gulika-kalam">🌿 Gulika Kalam</span>
+                <span class="telugu-label" id="sub-gulika-kalam">(గుళిక కాలం)</span>
               </div>
               <div class="muhurtham-time" id="gulika-kalam">--:-- - --:--</div>
             </div>
@@ -221,7 +231,7 @@
           <div class="card-header">
             <div class="card-title-group">
               <span>📰</span>
-              <h2>TV9 Telugu — 4 Min 24 Headlines</h2>
+              <h2 data-i18n="newsCardTitle">TV9 Telugu — 4 Min 24 Headlines</h2>
             </div>
             <div class="news-header-meta">
               <a href="https://www.youtube.com/@TV9TeluguLive" target="_blank" rel="noopener noreferrer" class="tv9-channel-pill" title="Open TV9 Telugu YouTube Channel">
@@ -235,10 +245,10 @@
           <!-- Video Tab Switcher -->
           <div class="news-tabs">
             <button id="tab-bulletin" class="tab-btn active">
-              <span>⚡ 4 Minutes 24 Headlines</span>
+              <span id="tab-bulletin-label">⚡ 4 Minutes 24 Headlines</span>
             </button>
             <button id="tab-live" class="tab-btn">
-              <span>🔴 TV9 Live Broadcast</span>
+              <span id="tab-live-label">🔴 TV9 Live Broadcast</span>
             </button>
           </div>
 
@@ -256,7 +266,7 @@
           <!-- News Details Bar -->
           <div class="news-details-bar">
             <div class="news-badge-strip">
-              <span class="bulletin-type-badge">Fast News Bulletin</span>
+              <span class="bulletin-type-badge" id="bulletin-type-badge" data-i18n="fastNewsBadge">Fast News Bulletin</span>
               <span class="news-relative-time" id="news-relative-time">Today Latest</span>
             </div>
             <h3 class="news-title" id="news-title">4 Minutes 24 Headlines | TV9 Telugu</h3>
@@ -266,19 +276,19 @@
           <!-- Quick Action Buttons -->
           <div class="news-action-buttons">
             <a id="watch-yt-btn" href="https://www.youtube.com/watch?v=NE18RBBtyb4" target="_blank" rel="noopener noreferrer" class="news-btn primary">
-              <span>▶️</span> Watch on YouTube (Direct Link)
+              <span>▶️</span> <span id="watch-yt-btn-label">Watch on YouTube (Direct Link)</span>
             </a>
             <a id="search-today-btn" href="#" target="_blank" rel="noopener noreferrer" class="news-btn secondary">
-              <span>🔍</span> Today's Bulletin Search
+              <span>🔍</span> <span id="search-today-btn-label">Today's Bulletin Search</span>
             </a>
             <a id="search-channel-btn" href="https://www.youtube.com/@TV9TeluguLive/search?query=4%20Minutes%2024%20Headlines" target="_blank" rel="noopener noreferrer" class="news-btn secondary">
-              <span>📺</span> Channel Bulletins
+              <span>📺</span> <span id="search-channel-btn-label">Channel Bulletins</span>
             </a>
           </div>
 
           <!-- Recent Bulletins Carousel/List -->
           <div class="recent-bulletins-box">
-            <div class="recent-bulletins-title">Today's Broadcast Editions</div>
+            <div class="recent-bulletins-title" id="recent-broadcast-title" data-i18n="recentBroadcastTitle">Today's Broadcast Editions</div>
             <ul id="recent-bulletins-list" class="recent-bulletins-list">
               <!-- Populated by JavaScript -->
             </ul>
@@ -295,11 +305,11 @@
           <div class="card-header">
             <div class="card-title-group">
               <span>✍️</span>
-              <h3>Morning Priorities & Focus</h3>
+              <h3 data-i18n="prioritiesTitle">Morning Priorities & Focus</h3>
             </div>
             <div class="notes-header-meta">
               <span class="notes-saved-indicator" id="notes-saved-indicator">Saved</span>
-              <button id="clear-notes-btn" class="clear-btn">Clear</button>
+              <button id="clear-notes-btn" class="clear-btn" data-i18n="clearBtn">Clear</button>
             </div>
           </div>
           <textarea
@@ -313,11 +323,11 @@
 
     <!-- Footer -->
     <footer class="app-footer">
-      <p>Prabhata • Handcrafted Morning Sanctuary & Astronomical Hindu Panchangam</p>
+      <p id="footer-text" data-i18n="footerText">Prabhata • Handcrafted Morning Sanctuary & Astronomical Hindu Panchangam</p>
       <div class="footer-links">
-        <a href="https://www.youtube.com/@TV9TeluguLive" target="_blank" rel="noopener noreferrer">TV9 Telugu Live</a>
+        <a id="footer-live-link" href="https://www.youtube.com/@TV9TeluguLive" target="_blank" rel="noopener noreferrer" data-i18n="footerLiveLink">TV9 Telugu Live</a>
         <span>•</span>
-        <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">Hosted on GitHub Pages</a>
+        <a id="footer-hosted-link" href="https://pages.github.com" target="_blank" rel="noopener noreferrer" data-i18n="footerHostedLink">Hosted on GitHub Pages</a>
       </div>
     </footer>
 
