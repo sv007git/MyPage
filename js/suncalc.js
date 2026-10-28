@@ -6,7 +6,7 @@
  *  - Brahma Muhurtham (Morning meditation period)
  *  - Abhijit Muhurtham (Auspicious midday window)
  *  - Rahu Kalam, Yamagandam, Gulika Kalam
- *  - Pre-configured city coordinates with auto-geolocation support
+ *  - Pre-configured city coordinates with auto-geolocation via IP address
  */
 
 const SunCalc = (() => {
@@ -27,11 +27,178 @@ const SunCalc = (() => {
     { id: 'sanfrancisco', name: 'San Francisco, US', lat: 37.7749, lon: -122.4194, timezone: 'America/Los_Angeles' }
   ];
 
+  // Authentic Telugu translations for prominent Indian cities
+  const TELUGU_CITY_NAMES = {
+    'hyderabad': 'హైదరాబాద్',
+    'secunderabad': 'సికింద్రాబాద్',
+    'vijayawada': 'విజయవాడ',
+    'visakhapatnam': 'విశాఖపట్నం',
+    'vizag': 'విశాఖపట్నం',
+    'tirupati': 'తిరుపతి',
+    'guntur': 'గుంటూరు',
+    'warangal': 'వరంగల్',
+    'kurnool': 'కర్నూలు',
+    'rajahmundry': 'రాజమండ్రి',
+    'nellore': 'నెల్లూరు',
+    'kadapa': 'కడప',
+    'kakinada': 'కాకినాడ',
+    'anantapur': 'అనంతపురం',
+    'bengaluru': 'బెంగళూరు',
+    'bangalore': 'బెంగళూరు',
+    'chennai': 'చెన్నై',
+    'madras': 'చెన్నై',
+    'tiruchirappalli': 'తిరుచిరాపల్లి',
+    'trichy': 'తిరుచిరాపల్లి',
+    'coimbatore': 'కోయంబత్తూరు',
+    'madurai': 'మదురై',
+    'mumbai': 'ముంబై',
+    'bombay': 'ముంబై',
+    'delhi': 'న్యూ ఢిల్లీ',
+    'new delhi': 'న్యూ ఢిల్లీ',
+    'kolkata': 'కోల్‌కతా',
+    'calcutta': 'కోల్‌కతా',
+    'pune': 'పుణె'
+  };
+
+  let detectedLocation = null;
+
   // 1-indexed weekday periods (Sunday=0 to Saturday=6)
   // Each day divided into 8 periods
   const RAHU_PERIODS = [8, 2, 7, 5, 6, 4, 3]; // Sun -> Sat (1-based period index)
   const YAMA_PERIODS = [5, 4, 3, 2, 1, 7, 6];
   const GULIKA_PERIODS = [7, 6, 5, 4, 3, 2, 1];
+
+  function getCachedLocation() {
+    try {
+      if (typeof localStorage !== 'undefined') {
+        const cached = localStorage.getItem('morning_ip_location');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          // Valid for 12 hours (43,200,000 ms)
+          if (parsed && parsed.data && (Date.now() - parsed.timestamp < 12 * 3600 * 1000)) {
+            return parsed.data;
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Could not read cached location:', e);
+    }
+    return null;
+  }
+
+  function setCachedLocation(data) {
+    try {
+      if (typeof localStorage !== 'undefined' && data) {
+        localStorage.setItem('morning_ip_location', JSON.stringify({
+          data,
+          timestamp: Date.now()
+        }));
+      }
+    } catch (e) {
+      console.warn('Could not cache location:', e);
+    }
+  }
+
+  /**
+   * Auto-detect user's current city and coordinates from IP address
+   * Uses high-reliability HTTPS endpoints with fallbacks and local caching
+   */
+  async function detectLocationFromIP() {
+    // 1. Try cache first for instant synchronous-like render
+    const cached = getCachedLocation();
+    if (cached) {
+      detectedLocation = cached;
+      return cached;
+    }
+
+    // 2. Query geolocation APIs (multiple reliable HTTPS endpoints with fallbacks)
+    const endpoints = [
+      {
+        url: 'https://ipwho.is/',
+        parse: (d) => (d && d.success && d.city && d.latitude) ? {
+          city: d.city,
+          region: d.region_code || d.region || '',
+          country: d.country || '',
+          lat: parseFloat(d.latitude),
+          lon: parseFloat(d.longitude),
+          timezone: (d.timezone && d.timezone.id) || 'Asia/Kolkata'
+        } : null
+      },
+      {
+        url: 'https://get.geojs.io/v1/ip/geo.json',
+        parse: (d) => (d && d.city && d.latitude) ? {
+          city: d.city,
+          region: d.region || '',
+          country: d.country || '',
+          lat: parseFloat(d.latitude),
+          lon: parseFloat(d.longitude),
+          timezone: d.timezone || 'Asia/Kolkata'
+        } : null
+      },
+      {
+        url: 'https://ipapi.co/json/',
+        parse: (d) => (d && d.city && d.latitude && !d.error) ? {
+          city: d.city,
+          region: d.region_code || d.region || '',
+          country: d.country_name || d.country || '',
+          lat: parseFloat(d.latitude),
+          lon: parseFloat(d.longitude),
+          timezone: d.timezone || 'Asia/Kolkata'
+        } : null
+      }
+    ];
+
+    for (const ep of endpoints) {
+      try {
+        let fetchOptions = { headers: { 'Accept': 'application/json' } };
+        if (typeof AbortController !== 'undefined') {
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 5000);
+          fetchOptions.signal = controller.signal;
+          const res = await fetch(ep.url, fetchOptions);
+          clearTimeout(timer);
+          if (res.ok) {
+            const json = await res.json();
+            const parsed = ep.parse(json);
+            if (parsed && !isNaN(parsed.lat) && !isNaN(parsed.lon)) {
+              const cityKey = (parsed.city || '').toLowerCase().trim();
+              const teluguName = TELUGU_CITY_NAMES[cityKey] || parsed.city;
+              const regionSuffix = parsed.region ? `, ${parsed.region}` : '';
+
+              const loc = {
+                id: 'current_ip',
+                name: `${parsed.city}${regionSuffix}`,
+                city: parsed.city,
+                region: parsed.region,
+                country: parsed.country,
+                nameTe: teluguName,
+                lat: parsed.lat,
+                lon: parsed.lon,
+                timezone: parsed.timezone,
+                isCurrentLocation: true
+              };
+              detectedLocation = loc;
+              setCachedLocation(loc);
+              return loc;
+            }
+          }
+        }
+      } catch (e) {
+        // Continue to fallback endpoint
+      }
+    }
+
+    return null;
+  }
+
+  function getDetectedLocation() {
+    return detectedLocation || getCachedLocation();
+  }
+
+  function setDetectedLocation(loc) {
+    detectedLocation = loc;
+    if (loc) setCachedLocation(loc);
+  }
 
   function getSunTimes(date, lat, lonEast) {
     const lw = -lonEast; // West longitude
@@ -125,6 +292,12 @@ const SunCalc = (() => {
 
   return {
     CITIES,
+    TELUGU_CITY_NAMES,
+    getCachedLocation,
+    setCachedLocation,
+    detectLocationFromIP,
+    getDetectedLocation,
+    setDetectedLocation,
     getSunTimes,
     calculateTimings,
     formatTime

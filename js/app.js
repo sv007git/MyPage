@@ -57,6 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Vedic Timings Card (Right Column)
       timingsTitle: 'Vedic Timings & Muhurthams',
       timingsSub: 'Solar & Astrological Hours',
+      currentLocationLabel: 'Current Location',
+      currentLocationSuffix: '(Current Location)',
+      detectingLocation: '📍 Detecting location...',
       sunrise: 'Sunrise',
       sunset: 'Sunset',
       dayLength: 'Day Length',
@@ -137,6 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Vedic Timings Card (Right Column)
       timingsTitle: 'సూర్యోదయం & ముహూర్తాలు',
       timingsSub: 'శుభ & అశుభ కాలాలు',
+      currentLocationLabel: 'ప్రస్తుత స్థానం',
+      currentLocationSuffix: '(ప్రస్తుత స్థానం)',
+      detectingLocation: '📍 ప్రస్తుత స్థానం లెక్కింపు...',
       sunrise: 'సూర్యోదయం',
       sunset: 'సూర్యాస్తమయం',
       dayLength: 'పగటి సమయం',
@@ -177,8 +183,20 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentDate = new Date();
   let currentTheme = localStorage.getItem('morning_theme') || 'dark'; // 'dark' or 'light'
   let currentLang = localStorage.getItem('morning_lang') || 'en';     // 'en' or 'te'
-  let selectedCity = SunCalc.CITIES[0]; // Default: Hyderabad
   let activeVideoTab = 'bulletin'; // 'bulletin' or 'live'
+
+  // IP Location detection & city selection initialization
+  const cachedLoc = (typeof SunCalc !== 'undefined' && SunCalc.getCachedLocation) ? SunCalc.getCachedLocation() : null;
+  const manualCityId = localStorage.getItem('morning_city_manual');
+  let selectedCity = null;
+
+  if (manualCityId && manualCityId !== 'current_ip') {
+    selectedCity = SunCalc.CITIES.find(c => c.id === manualCityId) || SunCalc.CITIES[0];
+  } else if (cachedLoc) {
+    selectedCity = cachedLoc;
+  } else {
+    selectedCity = SunCalc.CITIES[0]; // Temporary fallback until detectLocationFromIP completes
+  }
 
   // Header Elements
   const appTitleEl = document.getElementById('app-title');
@@ -412,13 +430,48 @@ document.addEventListener('DOMContentLoaded', () => {
     applyLanguage(currentLang === 'en' ? 'te' : 'en');
   }
 
-  // ---------------- City Selector ----------------
+  // ---------------- City Selector (Auto-detect from IP + Presets) ----------------
   function populateCities() {
     if (!citySelectEl) return;
     const currentCityId = selectedCity ? selectedCity.id : 'hyderabad';
     citySelectEl.innerHTML = '';
 
     const t = I18N[currentLang];
+    const isTe = (currentLang === 'te');
+    const detectedLoc = (typeof SunCalc !== 'undefined' && SunCalc.getDetectedLocation) ? SunCalc.getDetectedLocation() : null;
+
+    // 1. IP detected location (top item)
+    if (detectedLoc) {
+      const opt = document.createElement('option');
+      opt.value = 'current_ip';
+      if (isTe) {
+        const teName = detectedLoc.nameTe || detectedLoc.city;
+        opt.textContent = `📍 ${teName} ${t.currentLocationSuffix}`;
+      } else {
+        const enName = `${detectedLoc.city}${detectedLoc.region ? ', ' + detectedLoc.region : ''}`;
+        opt.textContent = `📍 ${enName} ${t.currentLocationSuffix}`;
+      }
+      if (currentCityId === 'current_ip') {
+        opt.selected = true;
+      }
+      citySelectEl.appendChild(opt);
+
+      // Visual divider
+      const sep = document.createElement('option');
+      sep.disabled = true;
+      sep.textContent = '──────────';
+      citySelectEl.appendChild(sep);
+    } else {
+      const opt = document.createElement('option');
+      opt.value = 'current_ip';
+      opt.textContent = t.detectingLocation;
+      if (currentCityId === 'current_ip') {
+        opt.selected = true;
+      }
+      citySelectEl.appendChild(opt);
+    }
+
+    // 2. Standard Pre-configured Cities
     SunCalc.CITIES.forEach(city => {
       const opt = document.createElement('option');
       opt.value = city.id;
@@ -631,6 +684,24 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderTimings() {
     const timings = SunCalc.calculateTimings(currentDate, selectedCity.lat, selectedCity.lon);
     if (!timings) return;
+
+    const t = I18N[currentLang];
+    const isTe = (currentLang === 'te');
+
+    // Display current city name in Timings subtitle
+    if (timingsSubEl) {
+      let cityDisplay = '';
+      if (selectedCity.isCurrentLocation) {
+        if (isTe) {
+          cityDisplay = `${selectedCity.nameTe || selectedCity.city} (${t.currentLocationLabel})`;
+        } else {
+          cityDisplay = `${selectedCity.city}${selectedCity.region ? ', ' + selectedCity.region : ''} (Current Location)`;
+        }
+      } else {
+        cityDisplay = (t.cities && t.cities[selectedCity.id]) ? t.cities[selectedCity.id] : selectedCity.name;
+      }
+      timingsSubEl.textContent = `${t.timingsSub} • ${cityDisplay}`;
+    }
 
     if (sunriseEl) sunriseEl.textContent = SunCalc.formatTime(timings.sunrise);
     if (sunsetEl) sunsetEl.textContent = SunCalc.formatTime(timings.sunset);
@@ -860,19 +931,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (citySelectEl) {
     citySelectEl.addEventListener('change', (e) => {
-      const found = SunCalc.CITIES.find(c => c.id === e.target.value);
-      if (found) {
-        selectedCity = found;
-        localStorage.setItem('morning_city', found.id);
+      const val = e.target.value;
+      if (val === 'current_ip') {
+        const detected = (typeof SunCalc !== 'undefined' && SunCalc.getDetectedLocation) ? SunCalc.getDetectedLocation() : null;
+        if (detected) {
+          selectedCity = detected;
+        }
+        localStorage.removeItem('morning_city_manual');
         renderTimings();
+      } else {
+        const found = SunCalc.CITIES.find(c => c.id === val);
+        if (found) {
+          selectedCity = found;
+          localStorage.setItem('morning_city_manual', found.id);
+          renderTimings();
+        }
       }
     });
   }
 
-  const savedCityId = localStorage.getItem('morning_city');
-  if (savedCityId) {
-    const found = SunCalc.CITIES.find(c => c.id === savedCityId);
-    if (found) selectedCity = found;
+  // Auto-detect current city from IP location in background
+  if (typeof SunCalc !== 'undefined' && SunCalc.detectLocationFromIP) {
+    SunCalc.detectLocationFromIP().then((loc) => {
+      if (loc) {
+        const manualCity = localStorage.getItem('morning_city_manual');
+        // If user hasn't manually selected a specific static city, use the detected IP location
+        if (!manualCity || manualCity === 'current_ip') {
+          selectedCity = loc;
+          renderTimings();
+        }
+        populateCities();
+      }
+    }).catch((err) => {
+      console.warn('IP location detection notice:', err);
+    });
   }
 
   // Apply Theme & Language
