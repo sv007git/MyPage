@@ -3,8 +3,8 @@
  * Calculates:
  *  - High-precision Sun & Moon Ecliptic Longitude (Jean Meeus algorithm)
  *  - Lunar Elongation, Phase Angle & Illumination %
- *  - Paksha: Shukla (Waxing / శుక్ల పక్షం) vs Krishna (Waning / కృష్ణ పక్షం)
- *  - Tithi (Current instant + Udaya/Sunrise tithi) & Tithi End Time
+ *  - Paksha: Shukla (Waxing) vs Krishna (Waning)
+ *  - Tithi & Tithi End Time
  *  - Nakshatra & Pada
  *  - Yoga & Karana
  *  - Hindu Lunar Month (Masa - Amanta)
@@ -16,20 +16,20 @@ const Panchang = (() => {
   const RAD2DEG = 180 / Math.PI;
 
   const TITHI_NAMES = [
-    { num: 1, sanskrit: 'Pratipada', telugu: 'పాడ్యమి (Padyami)' },
-    { num: 2, sanskrit: 'Dwitiya', telugu: 'విదియ (Vidiya)' },
-    { num: 3, sanskrit: 'Tritiya', telugu: 'తదియ (Tadiya)' },
-    { num: 4, sanskrit: 'Chaturthi', telugu: 'చవితి (Chavithi)' },
-    { num: 5, sanskrit: 'Panchami', telugu: 'పంచమి (Panchami)' },
-    { num: 6, sanskrit: 'Shashti', telugu: 'షష్ఠి (Shashti)' },
-    { num: 7, sanskrit: 'Saptami', telugu: 'సప్తమి (Saptami)' },
-    { num: 8, sanskrit: 'Ashtami', telugu: 'అష్టమి (Ashtami)' },
-    { num: 9, sanskrit: 'Navami', telugu: 'నవమి (Navami)' },
-    { num: 10, sanskrit: 'Dashami', telugu: 'దశమి (Dashami)' },
-    { num: 11, sanskrit: 'Ekadashi', telugu: 'ఏకాదశి (Ekadashi)' },
-    { num: 12, sanskrit: 'Dvadashi', telugu: 'ద్వాదశి (Dvadashi)' },
-    { num: 13, sanskrit: 'Trayodashi', telugu: 'త్రయోదశి (Trayodashi)' },
-    { num: 14, sanskrit: 'Chaturdashi', telugu: 'చతుర్దశి (Chaturdashi)' },
+    { num: 1, sanskrit: 'Pratipada', telugu: 'పాడ్యమి' },
+    { num: 2, sanskrit: 'Dwitiya', telugu: 'విదియ' },
+    { num: 3, sanskrit: 'Tritiya', telugu: 'తదియ' },
+    { num: 4, sanskrit: 'Chaturthi', telugu: 'చవితి' },
+    { num: 5, sanskrit: 'Panchami', telugu: 'పంచమి' },
+    { num: 6, sanskrit: 'Shashti', telugu: 'షష్ఠి' },
+    { num: 7, sanskrit: 'Saptami', telugu: 'సప్తమి' },
+    { num: 8, sanskrit: 'Ashtami', telugu: 'అష్టమి' },
+    { num: 9, sanskrit: 'Navami', telugu: 'నవమి' },
+    { num: 10, sanskrit: 'Dashami', telugu: 'దశమి' },
+    { num: 11, sanskrit: 'Ekadashi', telugu: 'ఏకాదశి' },
+    { num: 12, sanskrit: 'Dvadashi', telugu: 'ద్వాదశి' },
+    { num: 13, sanskrit: 'Trayodashi', telugu: 'త్రయోదశి' },
+    { num: 14, sanskrit: 'Chaturdashi', telugu: 'చతుర్దశి' },
     { num: 15, sanskrit: 'Purnima / Amavasya', telugu: 'పౌర్ణమి / అమావాస్య' }
   ];
 
@@ -44,8 +44,8 @@ const Panchang = (() => {
     { name: 'Pushya', telugu: 'పుష్యమి' },
     { name: 'Ashlesha', telugu: 'ఆశ్లేష' },
     { name: 'Magha', telugu: 'మఖ' },
-    { name: 'Purva Phalguni', telugu: 'పుబ్బ (పూర్వ ఫల్గుణి)' },
-    { name: 'Uttara Phalguni', telugu: 'ఉత్తర (ఉత్తర ఫల్గుణి)' },
+    { name: 'Purva Phalguni', telugu: 'పూర్వ ఫల్గుణి' },
+    { name: 'Uttara Phalguni', telugu: 'ఉత్తర ఫల్గుణి' },
     { name: 'Hasta', telugu: 'హస్త' },
     { name: 'Chitra', telugu: 'చిత్త' },
     { name: 'Swati', telugu: 'స్వాతి' },
@@ -71,7 +71,7 @@ const Panchang = (() => {
   ];
 
   const KARANAS = [
-    'Bava', 'Balava', 'Kaulava', 'Taitila', 'Garija', 'Vanija', 'Vishti (Bhadra)',
+    'Bava', 'Balava', 'Kaulava', 'Taitila', 'Garija', 'Vanija', 'Vishti',
     'Shakuni', 'Chatushpada', 'Naga', 'Kimstughna'
   ];
 
@@ -85,7 +85,7 @@ const Panchang = (() => {
     { sanskrit: 'Ashvina', telugu: 'ఆశ్వయుజం', deity: 'Padmanabha' },
     { sanskrit: 'Kartika', telugu: 'కార్తీకం', deity: 'Damodara' },
     { sanskrit: 'Margashirsha', telugu: 'మార్గశిరం', deity: 'Keshava' },
-    { sanskrit: 'Pushya (Pausha)', telugu: 'పుష్యం', deity: 'Narayana' },
+    { sanskrit: 'Pushya', telugu: 'పుష్యం', deity: 'Narayana' },
     { sanskrit: 'Magha', telugu: 'మాఘం', deity: 'Madhava' },
     { sanskrit: 'Phalguna', telugu: 'ఫాల్గుణం', deity: 'Govinda' }
   ];
@@ -134,7 +134,6 @@ const Panchang = (() => {
   }
 
   function getAyanamsha(T) {
-    // Lahiri Chitrapaksha Ayanamsha approximation
     return 23.85 + (T * 100 * 50.29 / 3600);
   }
 
@@ -226,10 +225,10 @@ const Panchang = (() => {
     // Illumination fraction (0 to 100%)
     const illumination = ((1 - Math.cos(elongation * DEG2RAD)) / 2) * 100;
 
-    // Paksha calculation
+    // Paksha calculation (Strictly separated English and Telugu properties)
     const isWaxing = elongation < 180;
     const pakshaKey = isWaxing ? 'shukla' : 'krishna';
-    const pakshaName = isWaxing ? 'Shukla Paksha (శుక్ల పక్షం)' : 'Krishna Paksha (కృష్ణ పక్షం)';
+    const pakshaName = isWaxing ? 'Shukla Paksha (Waxing Phase)' : 'Krishna Paksha (Waning Phase)';
     const pakshaShort = isWaxing ? 'Shukla' : 'Krishna';
     const pakshaTelugu = isWaxing ? 'శుక్ల పక్షం' : 'కృష్ణ పక్షం';
     const pakshaType = isWaxing ? 'Waxing' : 'Waning';
@@ -244,35 +243,35 @@ const Panchang = (() => {
     let tithiTeluguName = '';
     if (tithiInPaksha === 15) {
       if (isWaxing) {
-        tithiDisplayName = 'Purnima';
-        tithiTeluguName = 'పౌర్ణమి (Pournami / Full Moon)';
+        tithiDisplayName = 'Purnima (Full Moon)';
+        tithiTeluguName = 'పౌర్ణమి';
       } else {
-        tithiDisplayName = 'Amavasya';
-        tithiTeluguName = 'అమావాస్య (Amavasya / New Moon)';
+        tithiDisplayName = 'Amavasya (New Moon)';
+        tithiTeluguName = 'అమావాస్య';
       }
     } else {
       tithiDisplayName = TITHI_NAMES[tithiIdx].sanskrit;
       tithiTeluguName = TITHI_NAMES[tithiIdx].telugu;
     }
 
-    // Tithi progress (0% to 100% of current 12-degree slot)
+    // Tithi progress
     const angleInTithi = elongation % 12;
     const tithiProgress = (angleInTithi / 12) * 100;
     const tithiEndTime = findTithiEnd(date, elongation);
 
     // Nakshatra (27 divisions of 13°20' = 13.3333°)
-    const nakshatraDegrees = 360 / 27; // 13.333333°
+    const nakshatraDegrees = 360 / 27;
     const nakshatraIndex = Math.floor(pos.nirayanaMoon / nakshatraDegrees) % 27;
     const nakshatra = NAKSHATRAS[nakshatraIndex];
     const nakshatraRemainder = pos.nirayanaMoon % nakshatraDegrees;
     const pada = Math.floor(nakshatraRemainder / (nakshatraDegrees / 4)) + 1;
 
-    // Yoga (27 Yogas based on Nirayana Sun + Moon)
+    // Yoga
     const yogaSum = norm(pos.nirayanaSun + pos.nirayanaMoon);
     const yogaIndex = Math.floor(yogaSum / (360 / 27)) % 27;
     const yogaName = YOGAS[yogaIndex];
 
-    // Karana (60 Half-Tithis, 11 types)
+    // Karana
     const karanaNum = Math.floor(elongation / 6) + 1;
     let karanaName = '';
     if (karanaNum === 1) {
@@ -293,46 +292,16 @@ const Panchang = (() => {
     const sunRashi = RASHIS[sunRashiIdx];
     const moonRashi = RASHIS[moonRashiIdx];
 
-    // Hindu Lunar Month (Amanta system)
-    // Approximate based on Sun's nirayana rashi at this lunar phase
+    // Hindu Lunar Month
     const masa = HINDU_MONTHS[sunRashiIdx];
 
-    // Vaasara (Vedic day of week)
-    const dayOfWeek = date.getDay(); // 0 is Sunday
+    // Vaasara
+    const dayOfWeek = date.getDay();
     const vaaram = VAARAMS[dayOfWeek];
 
-    // Lunar Age in days (0 to 29.53)
+    // Lunar Age
     const synodicMonth = 29.53058867;
     const lunarAgeDays = (elongation / 360) * synodicMonth;
-
-    // Categorized Moon Phase Name
-    let phaseCategory = '';
-    let phaseIcon = '';
-    if (elongation < 7.5 || elongation >= 352.5) {
-      phaseCategory = 'New Moon (Amavasya)';
-      phaseIcon = '🌑';
-    } else if (elongation < 82.5) {
-      phaseCategory = 'Waxing Crescent (Shukla Prathama to Saptami)';
-      phaseIcon = '🌒';
-    } else if (elongation < 97.5) {
-      phaseCategory = 'First Quarter (Shukla Ashtami)';
-      phaseIcon = '🌓';
-    } else if (elongation < 172.5) {
-      phaseCategory = 'Waxing Gibbous (Shukla Navami to Chaturdashi)';
-      phaseIcon = '🌔';
-    } else if (elongation < 187.5) {
-      phaseCategory = 'Full Moon (Purnima)';
-      phaseIcon = '🌕';
-    } else if (elongation < 262.5) {
-      phaseCategory = 'Waning Gibbous (Krishna Prathama to Saptami)';
-      phaseIcon = '🌖';
-    } else if (elongation < 277.5) {
-      phaseCategory = 'Third Quarter (Krishna Ashtami)';
-      phaseIcon = '🌗';
-    } else {
-      phaseCategory = 'Waning Crescent (Krishna Navami to Chaturdashi)';
-      phaseIcon = '🌘';
-    }
 
     return {
       date,
@@ -369,9 +338,7 @@ const Panchang = (() => {
         moon: moonRashi
       },
       vaaram: vaaram,
-      moonAge: lunarAgeDays,
-      phaseCategory: phaseCategory,
-      phaseIcon: phaseIcon
+      moonAge: lunarAgeDays
     };
   }
 

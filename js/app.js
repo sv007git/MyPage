@@ -1,7 +1,7 @@
 /**
  * Main Application Controller for Daily Morning Page
  * Layout:
- *  - LEFT COLUMN: TV9 Telugu News Hub & Morning Focus (Chants, Scratchpad)
+ *  - LEFT COLUMN: TV9 Telugu News Hub & Morning Wisdom (Chants)
  *  - RIGHT COLUMN: Hindu Calendar & Vedic Timings (Panchangam, Sun/Moon)
  * Language Modes:
  *  - English (EN): Strictly 100% English text with ZERO Telugu characters
@@ -31,15 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
       todaySearch: "Today's Bulletin Search",
       channelBulletins: 'TV9 Channel Bulletins',
       recentBroadcastTitle: "Today's Broadcast Editions",
-
-      // Priorities & Notes
-      prioritiesTitle: 'Morning Priorities & Focus',
-      saved: 'Saved',
-      saving: 'Saving...',
-      cleared: 'Cleared',
-      clearBtn: 'Clear',
-      notesPlaceholder: 'Write your morning thoughts, daily gratitude, or 3 top priorities for today... (auto-saved locally)',
-      clearConfirm: "Clear today's morning notes?",
 
       // Panchang Card (Right Column)
       panchangTitle: 'Hindu Calendar & Moon Phase',
@@ -120,15 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
       todaySearch: 'నేటి బులెటిన్ శోధించండి',
       channelBulletins: 'ఛానల్ బులెటిన్లు',
       recentBroadcastTitle: 'నేటి ప్రసార ఎడిషన్లు',
-
-      // Priorities & Notes
-      prioritiesTitle: 'ఉదయపు లక్ష్యాలు & ప్రాధాన్యతలు',
-      saved: 'సేవ్ అయింది',
-      saving: 'సేవ్ అవుతోంది...',
-      cleared: 'తొలగించబడింది',
-      clearBtn: 'తుడిచివేయి',
-      notesPlaceholder: 'మీ ఉదయపు ఆలోచనలు, కృతజ్ఞతలు లేదా నేటి ముఖ్యమైన 3 ప్రాధాన్యతలు ఇక్కడ రాయండి... (ఆటో-సేవ్ అవుతుంది)',
-      clearConfirm: 'నేటి ఉదయపు నోట్స్ తుడిచివేయాలా?',
 
       // Panchang Card (Right Column)
       panchangTitle: 'హిందూ పంచాంగం & చంద్ర కళ',
@@ -238,12 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const recentBroadcastTitleEl = document.getElementById('recent-broadcast-title');
   const recentBulletinsList = document.getElementById('recent-bulletins-list');
 
-  // Left Column: Priorities & Notes
-  const prioritiesTitleEl = document.getElementById('priorities-title');
-  const morningNotesEl = document.getElementById('morning-notes');
-  const clearNotesBtn = document.getElementById('clear-notes-btn');
-  const notesSavedIndicator = document.getElementById('notes-saved-indicator');
-
   // Right Column: Moon & Panchang Elements
   const panchangTitleEl = document.getElementById('panchang-title');
   const panchangSubEl = document.getElementById('panchang-sub');
@@ -319,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
       meaning_te: 'సకల లోకాలను సృష్టించి ప్రకాశింపజేసే ఆ పరమేశ్వరుని దివ్య తేజస్సును మేము ధ్యానిస్తున్నాము. ఆ పరమాత్మ మా బుద్ధిని సన్మార్గంలో నడిపించుగాక.'
     },
     {
-      shlokam_en: 'Oṃ Sūryāya Namaḥ | Oṃ Ādityāya Namaḥ |\nĀrogyaṃ Bhāskarād-Icchet Śriyam-Icchet Hutāశanāt ||',
+      shlokam_en: 'Oṃ Sūryāya Namaḥ | Oṃ Ādityāya Namaḥ |\nĀrogyaṃ Bhāskarād-Icchet Śriyam-Icchet Hutāśanāt ||',
       shlokam_te: 'ఓం సూర్యాయ నమః । ఓం ఆదిత్యాయ నమః ।\nఆరోగ్యం భాస్కరాదిచ్ఛేత్ శ్రియమిచ్ఛేత్ హుతాశనాత్ ॥',
       title_en: 'Surya Vandana (Sun Salutation Prayer)',
       title_te: 'సూర్య వందనం (ఆరోగ్య ప్రదాత ప్రార్థన)',
@@ -393,11 +369,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchTodayBtnLabel) searchTodayBtnLabel.textContent = t.todaySearch;
     if (searchChannelBtnLabel) searchChannelBtnLabel.textContent = t.channelBulletins;
     if (recentBroadcastTitleEl) recentBroadcastTitleEl.textContent = t.recentBroadcastTitle;
-
-    // Left Column: Priorities & Notes
-    if (prioritiesTitleEl) prioritiesTitleEl.textContent = t.prioritiesTitle;
-    if (clearNotesBtn) clearNotesBtn.textContent = t.clearBtn;
-    if (morningNotesEl) morningNotesEl.placeholder = t.notesPlaceholder;
 
     // Right Column: Panchang Card
     if (panchangTitleEl) panchangTitleEl.textContent = t.panchangTitle;
@@ -548,12 +519,14 @@ document.addEventListener('DOMContentLoaded', () => {
       moonSvgContainer.innerHTML = MoonRenderer.renderSvg(p.elongation);
     }
 
-    // 2. Paksha Badge & Status
+    // 2. Paksha Badge & Status (Strict separation: ZERO Telugu text in English mode!)
     if (pakshaBadgeEl && pakshaTypeLabel && pakshaNameLabel) {
       const isWaxing = p.isWaxing;
       pakshaBadgeEl.className = `paksha-badge ${isWaxing ? 'waxing' : 'waning'}`;
       pakshaTypeLabel.textContent = isWaxing ? t.waxingType : t.waningType;
-      pakshaNameLabel.textContent = isWaxing ? t.waxingName : t.waningName;
+      pakshaNameLabel.textContent = isWaxing
+        ? (isTe ? 'శుక్ల పక్షం (చంద్రవృద్ధి)' : 'Shukla Paksha (Waxing Phase)')
+        : (isTe ? 'కృష్ణ పక్షం (చంద్రక్షయ)' : 'Krishna Paksha (Waning Phase)');
     }
 
     // 3. Illumination & Phase Category
@@ -572,7 +545,6 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (p.elongation < 277.5) moonPhaseNameEl.textContent = 'కృష్ణ అష్టమి (తృతీయ పాద చంద్రుడు)';
         else moonPhaseNameEl.textContent = 'కృష్ణ పక్ష క్షయ కళ (నవమి నుండి చతుర్దశి)';
       } else {
-        // Pure English Moon Phase Name
         if (p.elongation < 7.5 || p.elongation >= 352.5) moonPhaseNameEl.textContent = 'New Moon (Amavasya)';
         else if (p.elongation < 82.5) moonPhaseNameEl.textContent = 'Waxing Crescent (Shukla Prathama to Saptami)';
         else if (p.elongation < 97.5) moonPhaseNameEl.textContent = 'First Quarter Moon (Shukla Ashtami)';
@@ -595,7 +567,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Tithi
     if (tithiNameEl) {
       if (isTe) {
-        tithiNameEl.textContent = `${p.tithi.telugu.split(' ')[0]} (${p.tithi.inPaksha}వ తిథి)`;
+        tithiNameEl.textContent = `${p.tithi.telugu} (${p.tithi.inPaksha}వ తిథి)`;
       } else {
         tithiNameEl.textContent = `${p.tithi.name} (Tithi ${p.tithi.inPaksha} of 15)`;
       }
@@ -623,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tithiEndsEl.textContent = `${t.tithiEndsApprox} ${endStr} IST`;
     }
 
-    // 5. Nakshatra, Masa, Vaaram, Yoga, Karana
+    // 5. Nakshatra, Masa, Vaaram (ZERO Telugu in English mode!)
     if (nakshatraNameEl) {
       nakshatraNameEl.innerHTML = isTe
         ? `<strong>${p.nakshatra.telugu}</strong> <span class="pada-badge">${p.nakshatra.pada}వ ${t.padaLabel}</span>`
@@ -632,7 +604,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (masaNameEl) {
       masaNameEl.innerHTML = isTe
-        ? `<strong>${p.masa.telugu}</strong>`
+        ? `<strong>${p.masa.telugu} మాసం</strong>`
         : `<strong>${p.masa.sanskrit} Month</strong>`;
     }
 
@@ -691,10 +663,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchChannelBtn) searchChannelBtn.href = links.channelGeneralSearchUrl;
 
     if (newsTitleEl) {
-      // In English mode, if the title has raw Telugu text, display English bulletin title
       let title = newsData.title || `4 Minutes 24 Headlines — ${links.dates.dateLong}`;
       if (!isTe && /[\u0C00-\u0C7F]/.test(title)) {
-        // Has Telugu script: clean it up for English mode
         title = title.replace(/[\u0C00-\u0C7F]+/g, '').replace(/\|\s*\|/g, '|').trim();
         if (title.length < 10) {
           title = `4 Minutes 24 Headlines | ${links.dates.dateLong} - TV9`;
@@ -851,35 +821,6 @@ document.addEventListener('DOMContentLoaded', () => {
     dateInputEl.value = `${y}-${m}-${d}`;
   }
 
-  // ---------------- Morning Scratchpad ----------------
-  function setupNotes() {
-    if (!morningNotesEl) return;
-    const savedNotes = localStorage.getItem('morning_notes') || '';
-    morningNotesEl.value = savedNotes;
-
-    let debounceTimer;
-    morningNotesEl.addEventListener('input', () => {
-      clearTimeout(debounceTimer);
-      const t = I18N[currentLang];
-      if (notesSavedIndicator) notesSavedIndicator.textContent = t.saving;
-      debounceTimer = setTimeout(() => {
-        localStorage.setItem('morning_notes', morningNotesEl.value);
-        if (notesSavedIndicator) notesSavedIndicator.textContent = t.saved;
-      }, 500);
-    });
-
-    if (clearNotesBtn) {
-      clearNotesBtn.addEventListener('click', () => {
-        const t = I18N[currentLang];
-        if (confirm(t.clearConfirm)) {
-          morningNotesEl.value = '';
-          localStorage.removeItem('morning_notes');
-          if (notesSavedIndicator) notesSavedIndicator.textContent = t.cleared;
-        }
-      });
-    }
-  }
-
   // ---------------- Keyboard Shortcuts ----------------
   function setupKeyboardShortcuts() {
     window.addEventListener('keydown', (e) => {
@@ -943,7 +884,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateLiveClock, 1000);
   setupDateNavigation();
   setupNewsTabs();
-  setupNotes();
   setupKeyboardShortcuts();
 
   // Load news

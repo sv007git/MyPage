@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Prabhata • Daily Morning Page</title>
   <meta name="description" content="Personal daily morning page featuring TV9 Telugu 4 Minutes 24 Headlines news bulletin and an astronomical Hindu Panchangam (Moon phases, Waxing Shukla & Waning Krishna Paksha, Tithi, Vedic timings).">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=5.0">
 </head>
 <body>
   <div class="app-wrapper">
@@ -149,24 +152,6 @@
         <!-- Daily Morning Wisdom / Mantra Card -->
         <article class="card mantra-card" id="daily-mantra-card">
           <!-- Populated by JavaScript -->
-        </article>
-
-        <!-- Morning Priorities & Focus Scratchpad -->
-        <article class="card scratchpad-card">
-          <div class="card-header">
-            <div class="card-title-group">
-              <span>✍️</span>
-              <h3 id="priorities-title">Morning Priorities & Focus</h3>
-            </div>
-            <div class="notes-header-meta">
-              <span class="notes-saved-indicator" id="notes-saved-indicator">Saved</span>
-              <button id="clear-notes-btn" class="clear-btn">Clear</button>
-            </div>
-          </div>
-          <textarea
-            id="morning-notes"
-            class="morning-notes-area"
-            placeholder="Write your morning thoughts, daily gratitude, or 3 top priorities for today... (auto-saved locally)"></textarea>
         </article>
 
       </div>
@@ -333,11 +318,11 @@
 
   </div>
 
-  <!-- Scripts -->
-  <script src="js/panchang.js"></script>
-  <script src="js/suncalc.js"></script>
-  <script src="js/moon-renderer.js"></script>
-  <script src="js/news.js"></script>
-  <script src="js/app.js"></script>
+  <!-- Scripts with cache busting query string -->
+  <script src="js/panchang.js?v=5.0"></script>
+  <script src="js/suncalc.js?v=5.0"></script>
+  <script src="js/moon-renderer.js?v=5.0"></script>
+  <script src="js/news.js?v=5.0"></script>
+  <script src="js/app.js?v=5.0"></script>
 </body>
 </html>
