@@ -340,8 +340,39 @@ body[data-lang="te"] {
 }
 
 @media (max-width: 1024px) {
+  .app-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top-header {
+    order: 1;
+    margin-bottom: 18px;
+  }
+
   .dashboard-grid {
-    grid-template-columns: 1fr;
+    display: contents;
+  }
+
+  .column-news {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* In mobile / single-column view, Day Picker is positioned just above Hindu Calendar & Moon Phase */
+  .date-nav-strip {
+    order: 3;
+    margin-bottom: 20px;
+  }
+
+  .column-panchang {
+    order: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 }
 
@@ -1166,11 +1197,6 @@ body[data-lang="te"] {
 @media (max-width: 768px) {
   .shortcuts-hint {
     display: none; /* Hide keyboard hints on touch screens */
-  }
-
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
   }
 }
 
