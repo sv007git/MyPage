@@ -1162,59 +1162,356 @@ body[data-lang="te"] {
   text-decoration: underline;
 }
 
-/* ---------------- Responsive Tweaks ---------------- */
-@media (max-width: 640px) {
-  .app-wrapper {
-    padding: 12px 10px 32px;
+/* ---------------- Mobile Responsive Enhancements (Phones & Tablets) ---------------- */
+@media (max-width: 768px) {
+  .shortcuts-hint {
+    display: none; /* Hide keyboard hints on touch screens */
   }
 
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-wrapper {
+    padding: 12px 10px 36px;
+  }
+
+  /* Header mobile layout: centered, balanced, clean */
   .top-header {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
+    text-align: center;
+    padding: 16px 14px;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .brand-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .app-title {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .app-greeting {
+    font-size: 0.88rem;
+    text-align: center;
   }
 
   .clock-section {
-    text-align: left;
     width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .live-clock {
+    font-size: 1.9rem;
+    text-align: center;
+  }
+
+  .clock-meta {
+    justify-content: center;
   }
 
   .controls-section {
     width: 100%;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .city-select-wrap {
+    width: 100%;
+  }
+
+  .city-select {
+    width: 100%;
+    text-align: center;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    border-radius: var(--border-radius-sm);
   }
 
   .header-toggles {
     width: 100%;
-    justify-content: space-between;
+    display: flex;
+    gap: 8px;
   }
 
   .header-toggle-btn {
     flex: 1;
+    min-height: 44px; /* Accessible mobile touch target */
+    justify-content: center;
+    font-size: 0.86rem;
+    padding: 10px 6px;
+  }
+
+  /* Date navigation mobile strip */
+  .date-nav-strip {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 10px;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .date-nav-controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .nav-btn {
+    flex: 1;
+    min-height: 42px;
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
     justify-content: center;
   }
 
+  .date-input-wrap {
+    width: 100%;
+    justify-content: center;
+    min-height: 42px;
+    padding: 8px 12px;
+  }
+
+  .date-input-wrap input[type="date"] {
+    width: 100%;
+    text-align: center;
+    font-size: 0.92rem;
+  }
+
+  /* Mobile card styling */
+  .card {
+    padding: 16px 14px;
+    border-radius: var(--border-radius-md);
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+  }
+
+  .card-title-group h2,
+  .card-title-group h3 {
+    font-size: 1.15rem;
+  }
+
+  .telugu-sub {
+    font-size: 0.85rem;
+  }
+
+  /* Moon Hero Visualizer */
   .moon-hero-display {
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 14px 10px;
+    gap: 16px;
+  }
+
+  .moon-visualizer svg {
+    width: 130px;
+    height: 130px;
+  }
+
+  .moon-meta-primary {
+    width: 100%;
+    align-items: center;
     text-align: center;
   }
 
   .paksha-badge {
     margin: 0 auto;
+    width: 100%;
+    max-width: 270px;
+    justify-content: center;
+    text-align: center;
   }
 
+  .moon-metrics {
+    align-items: center;
+    text-align: center;
+  }
+
+  .phase-countdown-stat {
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Tithi Box */
+  .tithi-highlight-box {
+    padding: 14px 12px;
+  }
+
+  .tithi-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .tithi-name {
+    font-size: 1.12rem;
+  }
+
+  .tithi-telugu {
+    font-size: 0.92rem;
+  }
+
+  /* Panchang 4-Grid on Mobile */
+  .panchang-meta-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .meta-slot {
+    padding: 10px 8px;
+  }
+
+  .meta-label {
+    font-size: 0.68rem;
+  }
+
+  .meta-value {
+    font-size: 0.85rem;
+    word-break: break-word;
+  }
+
+  /* Rashi Strip on Mobile */
+  .rashi-strip {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+    font-size: 0.82rem;
+    padding: 10px 8px;
+  }
+
+  /* Timings Overview 3-Column Mobile Widget */
   .timings-overview {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .timing-bubble {
+    padding: 10px 4px;
+  }
+
+  .bubble-icon {
+    font-size: 1.25rem;
+  }
+
+  .bubble-label {
+    font-size: 0.68rem;
+  }
+
+  .bubble-time {
+    font-size: 0.95rem;
+  }
+
+  /* Muhurtham rows */
+  .muhurtham-row {
+    padding: 10px 10px;
+    gap: 8px;
+  }
+
+  .muhurtham-name {
+    font-size: 0.82rem;
+    flex-wrap: wrap;
+  }
+
+  .muhurtham-time {
+    font-size: 0.82rem;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  /* News Section Mobile */
+  .news-header-meta {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .news-tabs {
+    gap: 6px;
+  }
+
+  .tab-btn {
+    min-height: 42px;
+    font-size: 0.8rem;
+    padding: 8px 6px;
+  }
+
+  .news-details-bar {
+    padding: 12px;
+  }
+
+  .news-title {
+    font-size: 0.95rem;
   }
 
   .news-action-buttons {
     grid-template-columns: 1fr;
+    gap: 8px;
   }
 
-  .news-btn.primary {
-    grid-column: span 1;
+  .news-btn {
+    min-height: 44px;
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+
+  .bulletin-select-btn {
+    min-height: 48px;
+    padding: 8px;
+  }
+
+  /* Mantra Shlokam */
+  .mantra-shlokam {
+    font-size: 0.92rem;
+    padding: 12px 10px;
+    line-height: 1.6;
+  }
+
+  .mantra-transliteration,
+  .mantra-meaning {
+    font-size: 0.82rem;
+  }
+}
+
+/* Extra small devices (iPhone SE, Galaxy Fold, 320px - 375px) */
+@media (max-width: 374px) {
+  .app-title {
+    font-size: 1.1rem;
+  }
+
+  .live-clock {
+    font-size: 1.6rem;
   }
 
   .panchang-meta-grid {
     grid-template-columns: 1fr;
+  }
+
+  .timings-overview {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 }
