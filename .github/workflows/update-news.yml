@@ -1,0 +1,35 @@
+name: Daily Morning TV9 News Sync
+
+on:
+  schedule:
+    # 00:30 UTC = 06:00 AM IST (Early morning bulletin)
+    # 01:30 UTC = 07:00 AM IST (Morning 7 AM bulletin)
+    # 02:30 UTC = 08:00 AM IST (Morning 8 AM bulletin)
+    # 04:30 UTC = 10:00 AM IST (Mid-morning bulletin)
+    - cron: '30 0,1,2,4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-news:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch Latest TV9 Telugu News
+        run: node scripts/fetch-tv9-news.js
+
+      - name: Commit & Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add latest_news.json
+          git diff --staged --quiet || (git commit -m "chore(news): auto-update TV9 Telugu 4 Min 24 Headlines [skip ci]" && git push)
