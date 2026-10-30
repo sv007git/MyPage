@@ -978,6 +978,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupNewsTabs();
   setupKeyboardShortcuts();
 
-  // Load news
+  // Load news initially and periodically check for new bulletins (every 10 minutes)
   loadNews();
+  setInterval(loadNews, 10 * 60 * 1000);
 });

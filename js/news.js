@@ -15,11 +15,11 @@ const NewsHub = (() => {
 
   // Fallback initial data in case of offline/local file:// access
   let currentNewsData = {
-    title: '4 Minutes 24 Headlines | TV9 Telugu',
-    videoId: 'NE18RBBtyb4',
-    url: 'https://www.youtube.com/watch?v=NE18RBBtyb4',
-    publishedAt: new Date().toISOString(),
-    thumbnail: 'https://i3.ytimg.com/vi/NE18RBBtyb4/hqdefault.jpg',
+    title: '4 Minutes 24 Headlines | 1 PM | 30-10-2026 - TV9',
+    videoId: 'OtcTaXH2z78',
+    url: 'https://www.youtube.com/watch?v=OtcTaXH2z78',
+    publishedAt: '2026-10-30T07:30:00.000Z',
+    thumbnail: 'https://i3.ytimg.com/vi/OtcTaXH2z78/hqdefault.jpg',
     bulletinTime: 'Today Latest Edition',
     source: 'preset'
   };
@@ -167,56 +167,25 @@ const NewsHub = (() => {
   }
 
   async function fetchLatestNews() {
-    // 1. Try local latest_news.json first
+    // 1. Fetch live latest_news.json with cache-busting
     try {
-      const localRes = await fetch('latest_news.json?t=' + Date.now());
+      const localRes = await fetch(`latest_news.json?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' }
+      });
       if (localRes.ok) {
         const localData = await localRes.json();
         if (localData && localData.latestBulletin) {
           currentNewsData = {
             ...localData.latestBulletin,
-            source: 'local_json'
+            source: 'latest_json'
           };
           recentBulletins = localData.recentBulletins || [localData.latestBulletin];
+          return { success: true, data: currentNewsData, list: recentBulletins };
         }
       }
     } catch (e) {
       console.warn('Could not load latest_news.json:', e.message);
-    }
-
-    // 2. Try fetching fresh YouTube RSS feed via public CORS proxies
-    const corsProxies = [
-      `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
-      `https://corsproxy.io/?url=${encodeURIComponent(RSS_URL)}`
-    ];
-
-    for (const proxy of corsProxies) {
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 6000);
-
-        const res = await fetch(proxy, { signal: controller.signal });
-        clearTimeout(timeoutId);
-
-        if (res.ok) {
-          const text = await res.text();
-          const parsed = parseXmlFeed(text);
-
-          if (parsed.length > 0) {
-            // Find best match (prefer exact 4 Minutes 24 Headlines)
-            const exact = parsed.find(b => b.isExactMatch) || parsed[0];
-            currentNewsData = {
-              ...exact,
-              source: 'live_rss'
-            };
-            recentBulletins = parsed;
-            return { success: true, data: currentNewsData, list: recentBulletins };
-          }
-        }
-      } catch (err) {
-        // Try next proxy
-        console.warn(`Proxy ${proxy} failed:`, err.message);
-      }
     }
 
     return { success: true, data: currentNewsData, list: recentBulletins };
