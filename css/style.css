@@ -69,6 +69,21 @@
   padding: 0;
 }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, input, select {
+  touch-action: manipulation;
+}
+
+img, iframe, svg, video {
+  max-width: 100%;
+}
+
 body {
   font-family: var(--font-main);
   background: var(--bg-gradient);
@@ -87,7 +102,8 @@ body[data-lang="te"] {
 .app-wrapper {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 24px 20px 48px;
+  padding: max(24px, env(safe-area-inset-top, 24px)) 20px max(48px, env(safe-area-inset-bottom, 48px));
+  width: 100%;
 }
 
 /* ---------------- Top Header ---------------- */
@@ -1551,16 +1567,16 @@ body[data-lang="te"] {
   text-decoration: underline;
 }
 
-/* ---------------- Mobile Responsive Enhancements (Phones & Tablets) ---------------- */
+/* ---------------- Mobile Responsive Adaptations (Phones, Tablets & Foldables) ---------------- */
 @media (max-width: 768px) {
   .shortcuts-hint {
-    display: none; /* Hide keyboard hints on touch screens */
+    display: none; /* Hide desktop keyboard hints on touch devices */
   }
 }
 
 @media (max-width: 640px) {
   .app-wrapper {
-    padding: 12px 10px 36px;
+    padding: max(12px, env(safe-area-inset-top, 12px)) 10px max(36px, env(safe-area-inset-bottom, 36px));
   }
 
   /* Header mobile layout: centered, balanced, clean */
@@ -1568,8 +1584,8 @@ body[data-lang="te"] {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 16px 14px;
-    gap: 14px;
+    padding: 14px 12px;
+    gap: 12px;
     margin-bottom: 16px;
   }
 
@@ -1577,30 +1593,53 @@ body[data-lang="te"] {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 8px;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .brand-icon img {
+    width: 42px;
+    height: 42px;
   }
 
   .app-title {
-    font-size: 1.25rem;
+    font-size: 1.22rem;
     text-align: center;
+    line-height: 1.35;
+  }
+
+  .brand-sub-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    width: 100%;
   }
 
   .app-greeting {
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     text-align: center;
+  }
+
+  .brand-audio-pill {
+    font-size: 0.76rem;
+    padding: 4px 10px;
+    min-height: 32px;
   }
 
   .clock-section {
     width: 100%;
     text-align: center;
-    padding: 10px 0;
+    padding: 8px 0;
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
   }
 
   .live-clock {
-    font-size: 1.9rem;
+    font-size: 1.85rem;
     text-align: center;
+    letter-spacing: 0.04em;
   }
 
   .clock-meta {
@@ -1611,7 +1650,7 @@ body[data-lang="te"] {
     width: 100%;
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 8px;
   }
 
   .city-select-wrap {
@@ -1621,57 +1660,68 @@ body[data-lang="te"] {
   .city-select {
     width: 100%;
     text-align: center;
-    padding: 10px 14px;
-    font-size: 0.9rem;
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    min-height: 42px;
     border-radius: var(--border-radius-sm);
   }
 
+  /* 3 Header action buttons in a balanced mobile grid */
   .header-toggles {
     width: 100%;
-    display: flex;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
   }
 
   .header-toggle-btn {
-    flex: 1;
-    min-height: 44px; /* Accessible mobile touch target */
+    min-height: 42px;
     justify-content: center;
-    font-size: 0.86rem;
-    padding: 10px 6px;
+    font-size: 0.78rem;
+    padding: 8px 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
   }
 
-  /* Date navigation mobile strip */
+  .header-toggle-btn .btn-icon {
+    font-size: 0.95rem;
+    margin-right: 2px;
+  }
+
+  /* Date navigation mobile strip (Above Hindu Calendar & Moon Phase) */
   .date-nav-strip {
     flex-direction: column;
     align-items: stretch;
-    padding: 12px 10px;
-    gap: 10px;
+    padding: 10px 8px;
+    gap: 8px;
     margin-bottom: 16px;
   }
 
   .date-nav-controls {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 6px;
   }
 
   .nav-btn {
-    flex: 1;
     min-height: 42px;
     text-align: center;
     padding: 8px 4px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
   }
 
   .date-input-wrap {
     width: 100%;
     justify-content: center;
     min-height: 42px;
-    padding: 8px 12px;
+    padding: 8px 10px;
   }
 
   .date-input-wrap input[type="date"] {
@@ -1680,41 +1730,238 @@ body[data-lang="te"] {
     font-size: 0.92rem;
   }
 
-  /* Mobile card styling */
+  /* Mobile Card Base */
   .card {
-    padding: 16px 14px;
+    padding: 14px 12px;
     border-radius: var(--border-radius-md);
   }
 
   .card-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
-    margin-bottom: 14px;
-    padding-bottom: 10px;
+    gap: 4px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
   }
 
   .card-title-group h2,
   .card-title-group h3 {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
+    line-height: 1.35;
   }
 
   .telugu-sub {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
   }
 
-  /* Moon Hero Visualizer */
+  /* Daily Dharma & Puja Guide Card Mobile Adaptation */
+  .dharma-guide-card {
+    gap: 12px;
+  }
+
+  .dharma-card-header {
+    padding-bottom: 10px;
+  }
+
+  .dharma-main-title {
+    font-size: 1.08rem;
+    line-height: 1.35;
+  }
+
+  .dharma-sub-title {
+    font-size: 0.76rem;
+    line-height: 1.4;
+  }
+
+  .dharma-hero-spotlight {
+    padding: 12px 10px;
+  }
+
+  .spotlight-badge-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .spotlight-badge {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+  }
+
+  .panchang-sub-inline {
+    font-size: 0.76rem;
+    line-height: 1.4;
+  }
+
+  .spotlight-deity-name {
+    font-size: 1.12rem;
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+
+  .spotlight-reason {
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  .dharma-section {
+    padding: 12px 10px;
+  }
+
+  .section-title-strip {
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .section-title-strip h4 {
+    font-size: 0.88rem;
+    line-height: 1.35;
+  }
+
+  .mantra-count-badge {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    margin-left: auto;
+  }
+
+  .sacred-shlokam-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    padding: 10px;
+    word-break: break-word;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-left-width: 2px;
+  }
+
+  .mantra-translit-text {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    margin-bottom: 6px;
+  }
+
+  .mantra-meaning-text {
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .mantra-action-bar {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .mantra-action-bar .copy-mantra-btn,
+  .mantra-action-bar .audio-mantra-btn {
+    flex: 1;
+    min-height: 42px;
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 8px 6px;
+    text-align: center;
+  }
+
+  .weekday-mantra-content {
+    gap: 4px;
+  }
+
+  .graha-mantra-code {
+    font-size: 0.88rem;
+    word-break: break-word;
+    line-height: 1.5;
+  }
+
+  .graha-meaning {
+    font-size: 0.78rem;
+  }
+
+  .puja-steps-grid {
+    gap: 8px;
+  }
+
+  .puja-step-card {
+    padding: 8px 10px;
+    gap: 10px;
+  }
+
+  .step-num {
+    width: 22px;
+    height: 22px;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .step-content {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .step-content strong {
+    font-size: 0.84rem;
+    margin-bottom: 2px;
+  }
+
+  .step-content p {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .puranic-story-text,
+  .customs-text {
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .fasting-health-note {
+    font-size: 0.76rem;
+    line-height: 1.45;
+    margin-top: 6px;
+    padding-top: 6px;
+  }
+
+  /* Panchang Observance Banner Mobile */
+  .panchang-observance-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .observance-badge-wrap {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .observance-title-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .observance-guide-link {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Moon Hero Visualizer Mobile */
   .moon-hero-display {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 14px 10px;
-    gap: 16px;
+    padding: 12px 8px;
+    gap: 14px;
   }
 
   .moon-visualizer svg {
-    width: 130px;
-    height: 130px;
+    width: 120px;
+    height: 120px;
   }
 
   .moon-meta-primary {
@@ -1726,7 +1973,7 @@ body[data-lang="te"] {
   .paksha-badge {
     margin: 0 auto;
     width: 100%;
-    max-width: 270px;
+    max-width: 280px;
     justify-content: center;
     text-align: center;
   }
@@ -1741,9 +1988,9 @@ body[data-lang="te"] {
     text-align: center;
   }
 
-  /* Tithi Box */
+  /* Tithi Box Mobile */
   .tithi-highlight-box {
-    padding: 14px 12px;
+    padding: 12px 10px;
   }
 
   .tithi-header {
@@ -1753,11 +2000,11 @@ body[data-lang="te"] {
   }
 
   .tithi-name {
-    font-size: 1.12rem;
+    font-size: 1.08rem;
   }
 
   .tithi-telugu {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
   }
 
   /* Panchang 4-Grid on Mobile */
@@ -1767,7 +2014,8 @@ body[data-lang="te"] {
   }
 
   .meta-slot {
-    padding: 10px 8px;
+    padding: 8px 6px;
+    min-width: 0;
   }
 
   .meta-label {
@@ -1775,56 +2023,60 @@ body[data-lang="te"] {
   }
 
   .meta-value {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     word-break: break-word;
   }
 
-  /* Rashi Strip on Mobile */
+  /* Rashi Strip Mobile */
   .rashi-strip {
     flex-direction: column;
     gap: 6px;
     text-align: center;
-    font-size: 0.82rem;
-    padding: 10px 8px;
+    font-size: 0.8rem;
+    padding: 8px;
   }
 
-  /* Timings Overview 3-Column Mobile Widget */
+  /* Timings Overview Mobile Widget */
   .timings-overview {
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    gap: 6px;
   }
 
   .timing-bubble {
-    padding: 10px 4px;
+    padding: 8px 2px;
+    min-width: 0;
   }
 
   .bubble-icon {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
   }
 
   .bubble-label {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
   }
 
   .bubble-time {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
   }
 
   /* Muhurtham rows */
   .muhurtham-row {
-    padding: 10px 10px;
+    padding: 8px 10px;
     gap: 8px;
   }
 
   .muhurtham-name {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     flex-wrap: wrap;
+    min-width: 0;
+    flex: 1;
   }
 
   .muhurtham-time {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     white-space: nowrap;
     text-align: right;
+    flex-shrink: 0;
   }
 
   /* News Section Mobile */
@@ -1834,21 +2086,25 @@ body[data-lang="te"] {
   }
 
   .news-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 6px;
   }
 
   .tab-btn {
     min-height: 42px;
     font-size: 0.8rem;
-    padding: 8px 6px;
+    padding: 8px 4px;
+    justify-content: center;
   }
 
   .news-details-bar {
-    padding: 12px;
+    padding: 10px 12px;
   }
 
   .news-title {
-    font-size: 0.95rem;
+    font-size: 0.94rem;
+    line-height: 1.35;
   }
 
   .news-action-buttons {
@@ -1858,8 +2114,9 @@ body[data-lang="te"] {
 
   .news-btn {
     min-height: 44px;
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     padding: 10px;
+    justify-content: center;
   }
 
   .bulletin-select-btn {
@@ -1867,27 +2124,37 @@ body[data-lang="te"] {
     padding: 8px;
   }
 
-  /* Mantra Shlokam */
-  .mantra-shlokam {
-    font-size: 0.92rem;
-    padding: 12px 10px;
-    line-height: 1.6;
+  /* Footer Mobile */
+  .site-footer {
+    text-align: center;
+    font-size: 0.78rem;
+    padding: 16px 10px;
   }
 
-  .mantra-transliteration,
-  .mantra-meaning {
-    font-size: 0.82rem;
+  .footer-links {
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 }
 
-/* Extra small devices (iPhone SE, Galaxy Fold, 320px - 375px) */
-@media (max-width: 374px) {
+/* Extra small devices & narrow foldables (320px - 380px) */
+@media (max-width: 380px) {
   .app-title {
-    font-size: 1.1rem;
+    font-size: 1.08rem;
   }
 
   .live-clock {
     font-size: 1.6rem;
+  }
+
+  .header-toggles {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .header-toggle-btn {
+    font-size: 0.82rem;
   }
 
   .panchang-meta-grid {
@@ -1897,5 +2164,17 @@ body[data-lang="te"] {
   .timings-overview {
     grid-template-columns: 1fr;
     gap: 6px;
+  }
+
+  .date-nav-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .news-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .mantra-action-bar {
+    flex-direction: column;
   }
 }
