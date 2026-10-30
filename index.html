@@ -22,7 +22,13 @@
         </div>
         <div>
           <h1 class="app-title" id="app-title">Prabhata • Daily Morning Sanctuary</h1>
-          <p class="app-greeting" id="greeting-text">Good Morning! 🌅</p>
+          <div class="brand-sub-row">
+            <p class="app-greeting" id="greeting-text">Good Morning! 🌅</p>
+            <button id="brand-audio-btn" class="brand-audio-pill" type="button" title="Listen to Prabhata Daily Audio (Shortcut: A)">
+              <span class="audio-wave-icon" id="brand-audio-icon">🔊</span>
+              <span id="brand-audio-label">Listen to Prabhata</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -42,8 +48,12 @@
           </select>
         </div>
 
-        <!-- 2 Prominent Toggles: Dark/Light Mode & Telugu/English Language -->
+        <!-- Header Actions: Listen Audio, Dark/Light Mode & Language -->
         <div class="header-toggles">
+          <button id="audio-briefing-btn" class="header-toggle-btn audio-toggle-btn" type="button" title="Listen to Prabhata Daily Audio (Shortcut: A)">
+            <span class="btn-icon" id="audio-btn-icon">🔊</span>
+            <span id="audio-btn-label">Listen</span>
+          </button>
           <button id="theme-toggle-btn" class="header-toggle-btn" title="Toggle Dark / Light Mode (Shortcut: D)">
             <span class="btn-icon" id="theme-btn-icon">☀️</span>
             <span id="theme-btn-label">Light Mode</span>
@@ -323,6 +333,7 @@
   <script src="js/suncalc.js?v=8.0"></script>
   <script src="js/moon-renderer.js?v=8.0"></script>
   <script src="js/dharma-guide.js?v=8.0"></script>
+  <script src="js/audio-player.js?v=8.0"></script>
   <script src="js/news.js?v=8.0"></script>
   <script src="js/app.js?v=8.0"></script>
 </body>

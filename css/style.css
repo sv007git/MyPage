@@ -245,6 +245,66 @@ body[data-lang="te"] {
   font-size: 1.05rem;
 }
 
+/* ---------------- Audio Text-to-Speech Controls ---------------- */
+.brand-sub-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.brand-audio-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 180, 84, 0.35);
+  background: rgba(255, 180, 84, 0.08);
+  color: var(--accent-gold);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  user-select: none;
+}
+
+.brand-audio-pill:hover {
+  background: rgba(255, 180, 84, 0.18);
+  border-color: var(--accent-gold);
+  transform: translateY(-1px);
+}
+
+.header-toggle-btn.audio-toggle-btn {
+  border-color: rgba(255, 180, 84, 0.35);
+  background: rgba(255, 180, 84, 0.08);
+  color: var(--accent-gold);
+}
+
+.header-toggle-btn.audio-toggle-btn:hover {
+  background: rgba(255, 180, 84, 0.18);
+  border-color: var(--accent-gold);
+}
+
+.header-toggle-btn.audio-toggle-btn.is-playing,
+.brand-audio-pill.is-playing,
+.audio-mantra-btn.is-playing {
+  background: rgba(255, 180, 84, 0.22) !important;
+  border-color: var(--accent-gold) !important;
+  color: var(--accent-gold) !important;
+  box-shadow: 0 0 12px rgba(255, 180, 84, 0.35);
+  animation: audioPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes audioPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 180, 84, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(255, 180, 84, 0);
+  }
+}
+
 /* ---------------- Date Navigation Strip ---------------- */
 .date-nav-strip {
   display: flex;
@@ -1226,6 +1286,8 @@ body[data-lang="te"] {
 .mantra-action-bar {
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .copy-mantra-btn {

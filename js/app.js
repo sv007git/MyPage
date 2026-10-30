@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       prevDay: '◀ Prev Day',
       today: 'Today',
       nextDay: 'Next Day ▶',
-      shortcutsHint: 'Shortcuts: <kbd>T</kbd> Today • <kbd>[</kbd> Prev • <kbd>]</kbd> Next • <kbd>D</kbd> Dark/Light • <kbd>L</kbd> Language',
+      shortcutsHint: 'Shortcuts: <kbd>T</kbd> Today • <kbd>[</kbd> Prev • <kbd>]</kbd> Next • <kbd>D</kbd> Dark/Light • <kbd>L</kbd> Language • <kbd>A</kbd> Audio',
 
       // News Hub Card (Left Column)
       newsCardTitle: 'TV9 Telugu — 4 Minutes 24 Headlines',
@@ -86,6 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
       copyMantra: 'Copy Mantra',
       copiedMantra: 'Copied!',
 
+      // Audio Briefing & Mantra TTS (Pure English)
+      audioBtnListen: 'Listen',
+      audioBtnStop: 'Stop',
+      brandAudioListen: 'Listen to Prabhata',
+      brandAudioStop: 'Stop Audio',
+      dharmaAudioListen: 'Listen Mantra',
+      dharmaAudioStop: 'Stop Audio',
+
       // Cities in Pure English
       cities: {
         hyderabad: 'Hyderabad, TS',
@@ -109,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
       prevDay: '◀ నిన్న',
       today: 'నేడు',
       nextDay: 'రేపు ▶',
-      shortcutsHint: 'షార్ట్‌కట్స్: <kbd>T</kbd> నేడు • <kbd>[</kbd> నిన్న • <kbd>]</kbd> రేపు • <kbd>D</kbd> డార్క్/లైట్ • <kbd>L</kbd> భాష',
+      shortcutsHint: 'షార్ట్‌కట్స్: <kbd>T</kbd> నేడు • <kbd>[</kbd> నిన్న • <kbd>]</kbd> రేపు • <kbd>D</kbd> డార్క్/లైట్ • <kbd>L</kbd> భాష • <kbd>A</kbd> ఆడియో',
 
       // News Hub Card (Left Column)
       newsCardTitle: 'టీవీ9 తెలుగు — 4 నిమిషాల్లో 24 హెడ్‌లైన్స్',
@@ -176,6 +184,14 @@ document.addEventListener('DOMContentLoaded', () => {
       copyMantra: 'మంత్రం కాపీ చేయండి',
       copiedMantra: 'కాపీ అయింది!',
 
+      // Audio Briefing & Mantra TTS (Pure Telugu)
+      audioBtnListen: 'వినండి',
+      audioBtnStop: 'ఆపండి',
+      brandAudioListen: 'ప్రభాత శ్రవణం',
+      brandAudioStop: 'ఆడియో ఆపండి',
+      dharmaAudioListen: 'మంత్ర శ్రవణం',
+      dharmaAudioStop: 'ఆడియో ఆపండి',
+
       // Cities in Pure Telugu
       cities: {
         hyderabad: 'హైదరాబాద్, తెలంగాణ',
@@ -230,6 +246,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeBtnLabel = document.getElementById('theme-btn-label');
   const langToggleBtn = document.getElementById('lang-toggle-btn');
   const langBtnLabel = document.getElementById('lang-btn-label');
+
+  // Audio Controls
+  const audioBriefingBtn = document.getElementById('audio-briefing-btn');
+  const audioBtnIcon = document.getElementById('audio-btn-icon');
+  const audioBtnLabel = document.getElementById('audio-btn-label');
+  const brandAudioBtn = document.getElementById('brand-audio-btn');
+  const brandAudioIcon = document.getElementById('brand-audio-icon');
+  const brandAudioLabel = document.getElementById('brand-audio-label');
 
   // Left Column: News Elements
   const newsCardTitleEl = document.getElementById('news-card-title');
@@ -442,6 +466,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Repopulate city names in selected language
     populateCities();
 
+    // Stop any in-progress speech synthesis when switching language
+    if (typeof PrabhataAudio !== 'undefined' && PrabhataAudio.isPlaying()) {
+      PrabhataAudio.stop();
+    }
+    updateAudioButtonsUI(false, null);
+
     // Re-render dynamic sections
     refreshAllViews();
   }
@@ -585,6 +615,13 @@ document.addEventListener('DOMContentLoaded', () => {
       ? `<br><em>${isTe ? 'నేటి విశేష నియమం:' : 'Special Observance:'}</em> ${guide.puja.specialPractice}`
       : '';
 
+    const isMantraPlaying = (typeof PrabhataAudio !== 'undefined' && PrabhataAudio.isPlaying() && PrabhataAudio.getActiveType() === 'mantra');
+    const mantraBtnClass = isMantraPlaying ? 'copy-mantra-btn audio-mantra-btn is-playing' : 'copy-mantra-btn audio-mantra-btn';
+    const mantraBtnIcon = isMantraPlaying ? '⏹️' : '🔊';
+    const mantraBtnLabel = isMantraPlaying
+      ? (t.dharmaAudioStop || (isTe ? 'ఆడియో ఆపండి' : 'Stop Audio'))
+      : (t.dharmaAudioListen || (isTe ? 'మంత్ర శ్రవణం' : 'Listen Mantra'));
+
     dailyDharmaCard.innerHTML = `
       <div class="card-header dharma-card-header">
         <div class="card-title-group">
@@ -617,6 +654,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="mantra-meaning-text"><strong>${isTe ? 'తాత్పర్యం:' : 'Meaning:'}</strong> ${guide.mainMantra.meaning}</div>
         </div>
         <div class="mantra-action-bar">
+          <button class="${mantraBtnClass}" id="listen-mantra-btn" type="button" title="${isTe ? 'మంత్ర శ్రవణం' : 'Listen to Mantra & Meaning'}">
+            <span id="listen-mantra-icon">${mantraBtnIcon}</span> <span id="listen-mantra-text">${mantraBtnLabel}</span>
+          </button>
           <button class="copy-mantra-btn" id="copy-main-mantra-btn" type="button" title="${isTe ? 'మంత్రం కాపీ చేయండి' : 'Copy Mantra to Clipboard'}">
             <span>📋</span> <span class="copy-btn-text">${t.copyMantra || (isTe ? 'మంత్రం కాపీ చేయండి' : 'Copy Mantra')}</span>
           </button>
@@ -722,6 +762,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }
+
+    // Hook up listen mantra button
+    const listenMantraBtn = document.getElementById('listen-mantra-btn');
+    if (listenMantraBtn) {
+      listenMantraBtn.addEventListener('click', () => {
+        if (typeof PrabhataAudio !== 'undefined') {
+          PrabhataAudio.toggleMantra({ guide, lang: currentLang });
+        }
+      });
+    }
   }
 
   function fallbackCopyText(text, callback) {
@@ -738,6 +788,89 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn('Copy failed:', err);
     }
     document.body.removeChild(ta);
+  }
+
+  // ---------------- Text-to-Speech (Audio) Briefing Controls ----------------
+  function updateAudioButtonsUI(isPlaying, activeType) {
+    const t = I18N[currentLang];
+    const isTe = (currentLang === 'te');
+
+    // 1. Header Audio Toggle Button
+    if (audioBriefingBtn) {
+      if (isPlaying && activeType === 'briefing') {
+        audioBriefingBtn.classList.add('is-playing');
+        if (audioBtnIcon) audioBtnIcon.textContent = '⏹️';
+        if (audioBtnLabel) audioBtnLabel.textContent = t.audioBtnStop || (isTe ? 'ఆపండి' : 'Stop');
+        audioBriefingBtn.title = isTe ? 'ఆడియో ఆపండి (షార్ట్‌కట్: A)' : 'Stop Audio (Shortcut: A)';
+      } else {
+        audioBriefingBtn.classList.remove('is-playing');
+        if (audioBtnIcon) audioBtnIcon.textContent = '🔊';
+        if (audioBtnLabel) audioBtnLabel.textContent = t.audioBtnListen || (isTe ? 'వినండి' : 'Listen');
+        audioBriefingBtn.title = isTe ? 'ప్రభాత ఆడియో వినండి (షార్ట్‌కట్: A)' : 'Listen to Prabhata Daily Audio (Shortcut: A)';
+      }
+    }
+
+    // 2. Brand Section Pill Button
+    if (brandAudioBtn) {
+      if (isPlaying && activeType === 'briefing') {
+        brandAudioBtn.classList.add('is-playing');
+        if (brandAudioIcon) brandAudioIcon.textContent = '⏹️';
+        if (brandAudioLabel) brandAudioLabel.textContent = t.brandAudioStop || (isTe ? 'ఆడియో ఆపండి' : 'Stop Audio');
+      } else {
+        brandAudioBtn.classList.remove('is-playing');
+        if (brandAudioIcon) brandAudioIcon.textContent = '🔊';
+        if (brandAudioLabel) brandAudioLabel.textContent = t.brandAudioListen || (isTe ? 'ప్రభాత శ్రవణం' : 'Listen to Prabhata');
+      }
+    }
+
+    // 3. Mantra Audio Button in Dharma Card
+    const mantraAudioBtn = document.getElementById('listen-mantra-btn');
+    if (mantraAudioBtn) {
+      const mantraAudioIcon = document.getElementById('listen-mantra-icon');
+      const mantraAudioText = document.getElementById('listen-mantra-text');
+      if (isPlaying && activeType === 'mantra') {
+        mantraAudioBtn.classList.add('is-playing');
+        if (mantraAudioIcon) mantraAudioIcon.textContent = '⏹️';
+        if (mantraAudioText) mantraAudioText.textContent = t.dharmaAudioStop || (isTe ? 'ఆడియో ఆపండి' : 'Stop Audio');
+      } else {
+        mantraAudioBtn.classList.remove('is-playing');
+        if (mantraAudioIcon) mantraAudioIcon.textContent = '🔊';
+        if (mantraAudioText) mantraAudioText.textContent = t.dharmaAudioListen || (isTe ? 'మంత్ర శ్రవణం' : 'Listen Mantra');
+      }
+    }
+  }
+
+  function triggerBriefingAudio() {
+    if (typeof PrabhataAudio === 'undefined') return;
+    const p = Panchang.calculate(currentDate);
+    const guide = DharmaGuide.generateGuide(p, currentLang);
+    const timings = SunCalc.calculateTimings(currentDate, selectedCity.lat, selectedCity.lon);
+    const t = I18N[currentLang];
+    const cityName = (selectedCity.isCurrentLocation)
+      ? ((currentLang === 'te') ? (selectedCity.nameTe || selectedCity.city) : selectedCity.city)
+      : ((t.cities && t.cities[selectedCity.id]) ? t.cities[selectedCity.id] : selectedCity.name);
+
+    PrabhataAudio.toggleBriefing({
+      panchang: p,
+      guide,
+      timings: timings ? {
+        sunrise: SunCalc.formatTime(timings.sunrise),
+        sunset: SunCalc.formatTime(timings.sunset),
+        brahmaMuhurtham: timings.brahmaMuhurtham,
+        abhijitMuhurtham: timings.abhijitMuhurtham,
+        rahuKalam: timings.rahuKalam
+      } : null,
+      cityName,
+      date: currentDate,
+      lang: currentLang
+    });
+  }
+
+  // Subscribe to audio player state changes
+  if (typeof PrabhataAudio !== 'undefined') {
+    PrabhataAudio.onStateChange((playing, type) => {
+      updateAudioButtonsUI(playing, type);
+    });
   }
 
   const renderDailyWisdom = renderDharmaGuide;
@@ -1029,13 +1162,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------------- Date Navigation ----------------
   function setupDateNavigation() {
+    function onDateChanged() {
+      if (typeof PrabhataAudio !== 'undefined' && PrabhataAudio.isPlaying()) {
+        PrabhataAudio.stop();
+      }
+      syncDatePicker();
+      refreshAllViews();
+    }
+
     if (dateInputEl) {
       syncDatePicker();
       dateInputEl.addEventListener('change', (e) => {
         if (e.target.value) {
           const [yr, mo, da] = e.target.value.split('-').map(Number);
           currentDate = new Date(yr, mo - 1, da, 7, 0, 0);
-          refreshAllViews();
+          onDateChanged();
         }
       });
     }
@@ -1043,24 +1184,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prevDayBtn) {
       prevDayBtn.addEventListener('click', () => {
         currentDate.setDate(currentDate.getDate() - 1);
-        syncDatePicker();
-        refreshAllViews();
+        onDateChanged();
       });
     }
 
     if (nextDayBtn) {
       nextDayBtn.addEventListener('click', () => {
         currentDate.setDate(currentDate.getDate() + 1);
-        syncDatePicker();
-        refreshAllViews();
+        onDateChanged();
       });
     }
 
     if (todayBtn) {
       todayBtn.addEventListener('click', () => {
         currentDate = new Date();
-        syncDatePicker();
-        refreshAllViews();
+        onDateChanged();
       });
     }
   }
@@ -1094,6 +1232,8 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleTheme();
       } else if (e.key === 'l' || e.key === 'L') {
         toggleLanguage();
+      } else if (e.key === 'a' || e.key === 'A') {
+        triggerBriefingAudio();
       }
     });
   }
@@ -1109,6 +1249,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------------- Initial Boot ----------------
   if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleTheme);
   if (langToggleBtn) langToggleBtn.addEventListener('click', toggleLanguage);
+  if (audioBriefingBtn) audioBriefingBtn.addEventListener('click', triggerBriefingAudio);
+  if (brandAudioBtn) brandAudioBtn.addEventListener('click', triggerBriefingAudio);
 
   if (citySelectEl) {
     citySelectEl.addEventListener('change', (e) => {
