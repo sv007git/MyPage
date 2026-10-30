@@ -79,6 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
       footerLiveLink: 'TV9 Telugu Live',
       footerHostedLink: 'Hosted on GitHub Pages',
 
+      // Daily Dharma & Worship Guide (Omkaram Format)
+      dharmaTitle: 'Daily Dharma & Puja Guide',
+      dharmaSub: 'Panchang-Based Spiritual Observance • Omkaram Devi Shree Guruji Margam',
+      dharmaObservanceGuide: 'Puja Guide',
+      copyMantra: 'Copy Mantra',
+      copiedMantra: 'Copied!',
+
       // Cities in Pure English
       cities: {
         hyderabad: 'Hyderabad, TS',
@@ -161,6 +168,13 @@ document.addEventListener('DOMContentLoaded', () => {
       footerText: 'ప్రభాత • నిత్య ఉదయపు దర్శనం & ఖగోళ హిందూ పంచాంగం',
       footerLiveLink: 'టీవీ9 తెలుగు లైవ్',
       footerHostedLink: 'గిట్‌హబ్ పేజీలలో హోస్ట్ చేయబడింది',
+
+      // Daily Dharma & Worship Guide (Omkaram Format)
+      dharmaTitle: 'నేటి ధర్మం & నిత్య పూజా విధానం',
+      dharmaSub: 'పంచాంగ అధిష్టాన దైవారాధన • ఓంకారం దేవిశ్రీ గురూజీ మార్గం',
+      dharmaObservanceGuide: 'పూజా విధానం',
+      copyMantra: 'మంత్రం కాపీ చేయండి',
+      copiedMantra: 'కాపీ అయింది!',
 
       // Cities in Pure Telugu
       cities: {
@@ -293,6 +307,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const footerTextEl = document.getElementById('footer-text');
   const footerLiveLinkEl = document.getElementById('footer-live-link');
   const footerHostedLinkEl = document.getElementById('footer-hosted-link');
+
+  // Dharma Guide & Observance Elements
+  const dailyDharmaCard = document.getElementById('daily-dharma-card');
+  const panchangObservanceBanner = document.getElementById('panchang-observance-banner');
+  const panchangObservanceTitle = document.getElementById('panchang-observance-title');
+  const observanceGuideBtnText = document.getElementById('observance-guide-btn-text');
 
   // ---------------- Bilingual Mantras ----------------
   const MORNING_MANTRAS = [
@@ -530,36 +550,197 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ---------------- Daily Morning Mantra / Wisdom (Strictly Bilingual) ----------------
-  function renderDailyWisdom() {
-    const wisdomEl = document.getElementById('daily-mantra-card');
-    if (!wisdomEl) return;
+  // ---------------- Daily Dharma & Worship Guide (Omkaram Format) ----------------
+  function renderDharmaGuide() {
+    if (!dailyDharmaCard || typeof DharmaGuide === 'undefined') return;
 
-    const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
-    const dayOfYear = Math.floor((currentDate - startOfYear) / (24 * 3600 * 1000));
-    const mantra = MORNING_MANTRAS[dayOfYear % MORNING_MANTRAS.length];
+    const p = Panchang.calculate(currentDate);
+    const guide = DharmaGuide.generateGuide(p, currentLang);
     const isTe = (currentLang === 'te');
+    const t = I18N[currentLang];
 
-    if (isTe) {
-      wisdomEl.innerHTML = `
-        <div class="mantra-header">
-          <span class="mantra-badge">🕉️ నిత్య ప్రాతఃకాల శ్లోకం</span>
-          <h4 class="mantra-title">${mantra.title_te}</h4>
+    // 1. Update Observatory Banner in Right Column Panchang Card
+    if (panchangObservanceBanner && panchangObservanceTitle) {
+      panchangObservanceTitle.textContent = `${guide.observanceTitle} (${guide.observanceBadge})`;
+      if (observanceGuideBtnText) {
+        observanceGuideBtnText.textContent = `🕉️ ${t.dharmaObservanceGuide || (isTe ? 'పూజా విధానం' : 'Puja Guide')}`;
+      }
+    }
+
+    // 2. Render Full Dharma Guide Card in Left Column
+    const specialClass = guide.isSpecialObservance ? ' special-vrata' : '';
+    
+    // Transliteration display (only in English mode if available)
+    const translitHtml = (!isTe && guide.mainMantra.translit)
+      ? `<div class="mantra-translit-text">${guide.mainMantra.translit}</div>`
+      : '';
+
+    // Weekday mantra secondary block
+    const weekdayMeaningHtml = (!isTe && guide.weekdayMantra.meaning)
+      ? `<div class="graha-meaning">${guide.weekdayMantra.meaning}</div>`
+      : '';
+
+    // Step 5 practice detail
+    const step5Practice = guide.puja.specialPractice
+      ? `<br><em>${isTe ? 'నేటి విశేష నియమం:' : 'Special Observance:'}</em> ${guide.puja.specialPractice}`
+      : '';
+
+    dailyDharmaCard.innerHTML = `
+      <div class="card-header dharma-card-header">
+        <div class="card-title-group">
+          <span class="dharma-icon">🕉️</span>
+          <h2 class="dharma-main-title">${t.dharmaTitle}</h2>
         </div>
-        <pre class="mantra-shlokam">${mantra.shlokam_te}</pre>
-        <p class="mantra-meaning"><strong>తాత్పర్యం:</strong> ${mantra.meaning_te}</p>
-      `;
-    } else {
-      wisdomEl.innerHTML = `
-        <div class="mantra-header">
-          <span class="mantra-badge">🕉️ Daily Morning Chant</span>
-          <h4 class="mantra-title">${mantra.title_en}</h4>
+        <span class="dharma-sub-title">${t.dharmaSub}</span>
+      </div>
+
+      <!-- Presiding Deity & Observance Spotlight -->
+      <div class="dharma-hero-spotlight${specialClass}">
+        <div class="spotlight-badge-row">
+          <span class="spotlight-badge">${guide.observanceBadge}</span>
+          <span class="panchang-sub-inline">${guide.panchangSummary}</span>
         </div>
-        <pre class="mantra-shlokam">${mantra.shlokam_en}</pre>
-        <p class="mantra-meaning"><strong>Meaning:</strong> ${mantra.meaning_en}</p>
-      `;
+        <h3 class="spotlight-deity-name">${guide.deityName}</h3>
+        <div class="spotlight-reason">${guide.reasonText}</div>
+      </div>
+
+      <!-- Primary Sacred Mantra -->
+      <div class="dharma-section">
+        <div class="section-title-strip">
+          <span class="strip-icon">📿</span>
+          <h4>${isTe ? 'నేటి ప్రధాన మంత్రం' : 'Sacred Mantra of the Day'}</h4>
+          <span class="mantra-count-badge">${isTe ? 'జప సంఖ్య:' : 'Repetition:'} ${guide.mainMantra.count}</span>
+        </div>
+        <div class="mantra-text-box">
+          <pre class="sacred-shlokam-text">${guide.mainMantra.sanskrit}</pre>
+          ${translitHtml}
+          <div class="mantra-meaning-text"><strong>${isTe ? 'తాత్పర్యం:' : 'Meaning:'}</strong> ${guide.mainMantra.meaning}</div>
+        </div>
+        <div class="mantra-action-bar">
+          <button class="copy-mantra-btn" id="copy-main-mantra-btn" type="button" title="${isTe ? 'మంత్రం కాపీ చేయండి' : 'Copy Mantra to Clipboard'}">
+            <span>📋</span> <span class="copy-btn-text">${t.copyMantra || (isTe ? 'మంత్రం కాపీ చేయండి' : 'Copy Mantra')}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Secondary Weekday Planetary Deity Mantra -->
+      <div class="dharma-section">
+        <div class="section-title-strip">
+          <span class="strip-icon">🪐</span>
+          <h4>${isTe ? 'వార అధిపతి మంత్రం' : 'Weekday Planetary Deity Mantra'} — ${guide.weekdayMantra.name}</h4>
+        </div>
+        <div class="weekday-mantra-content">
+          <div class="graha-mantra-code">${guide.weekdayMantra.text}</div>
+          ${weekdayMeaningHtml}
+        </div>
+      </div>
+
+      <!-- 5-Step Simple Home Puja Routine -->
+      <div class="dharma-section">
+        <div class="section-title-strip">
+          <span class="strip-icon">🪔</span>
+          <h4>${isTe ? 'గృహ పూజా విధానం (5 సులభ దశలు)' : 'Simple 5-Step Home Puja Routine'}</h4>
+        </div>
+        <div class="puja-steps-grid">
+          <div class="puja-step-card">
+            <span class="step-num">1</span>
+            <div class="step-content">
+              <strong>${isTe ? 'దీపారాధన & శుచి' : 'Prepare Your Sacred Space'}</strong>
+              <p>${isTe ? 'పూజా మందిరాన్ని శుభ్రం చేసి, ఆవు నెయ్యి లేదా నువ్వుల నూనెతో దీపం వెలిగించండి. ప్రశాంత చిత్తంతో ఆచమనం చేయండి.' : 'Clean the altar, light a traditional ghee or sesame oil lamp safely, and sit facing East or North with calm breath.'}</p>
+            </div>
+          </div>
+          <div class="puja-step-card">
+            <span class="step-num">2</span>
+            <div class="step-content">
+              <strong>${isTe ? 'గణపతి ప్రార్థన' : 'Seek Sri Ganesha\'s Grace'}</strong>
+              <p>${isTe ? '"ఓం గం గణపతయే నమః" అని 11 సార్లు జపించి, విఘ్నాలు తొలగి పూజ నిర్విఘ్నంగా సాగాలని ప్రార్థించండి.' : 'Chant "Om Gam Ganapataye Namah" 11 times, praying for clarity and removal of all inner and outer obstacles.'}</p>
+            </div>
+          </div>
+          <div class="puja-step-card">
+            <span class="step-num">3</span>
+            <div class="step-content">
+              <strong>${isTe ? 'ప్రధాన దైవారాధన & పుష్ప సమర్పణ' : 'Worship ' + guide.deityName}</strong>
+              <p>${isTe ? `పుష్పాలు: ${guide.puja.flowers} సమర్పించండి. భక్తి శ్రద్ధలతో ప్రధాన మంత్రాన్ని ${guide.mainMantra.count} జపించండి.` : `Offer ${guide.puja.flowers}. Meditate and chant the sacred mantra ${guide.mainMantra.count} with heartfelt devotion.`}</p>
+            </div>
+          </div>
+          <div class="puja-step-card">
+            <span class="step-num">4</span>
+            <div class="step-content">
+              <strong>${isTe ? 'నైవేద్యం & కర్పూర నీరాజనం' : 'Offer Naivedyam & Arati'}</strong>
+              <p>${isTe ? `నైవేద్యం: ${guide.puja.naivedyam} సమర్పించి, భక్తితో కర్పూర హారతి లేదా ధూపం చూపించండి.` : `Offer ${guide.puja.naivedyam}. Wave incense or camphor flame (Arati) with gratitude.`}</p>
+            </div>
+          </div>
+          <div class="puja-step-card">
+            <span class="step-num">5</span>
+            <div class="step-content">
+              <strong>${isTe ? 'దాన ధర్మం & ముగింపు' : 'Charity & Prayer Completion'}</strong>
+              <p>${guide.puja.charity}${step5Practice}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why This Day is Special: Puranic Story & Omkaram Wisdom -->
+      <div class="dharma-section">
+        <div class="section-title-strip">
+          <span class="strip-icon">📖</span>
+          <h4>${isTe ? 'నేటి తిథి విశిష్టత & పురాణ గాథ' : 'Why This Day is Special — Puranic Story & Significance'}</h4>
+        </div>
+        <p class="puranic-story-text">${guide.puranicStory}</p>
+      </div>
+
+      <!-- Gentle Health & Fasting Guidance -->
+      <div class="dharma-section gentle-note">
+        <div class="fasting-health-note">${isTe ? 'గమనిక: పూజా సంకల్పం, ఉపవాసం శారీరక ఆరోగ్యం మరియు కుటుంబ ఆచారాలను బట్టి ఆచరించాలి. ఆరోగ్య రీత్యా పూర్తి ఉపవాసం వీలుకాని వారు పండ్లు లేదా పాలు తీసుకుంటూ భగవద్ ధ్యానం చేయవచ్చు.' : 'Devotional Note: Fasting and rigorous observances should always be tailored to your health and family traditions. If complete fasting is not suitable, consuming fruits, milk, or a simple vegetarian sattvic meal while engaging in quiet contemplation is equally auspicious.'}</div>
+      </div>
+    `;
+
+    // Hook up copy mantra button
+    const copyBtn = document.getElementById('copy-main-mantra-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const textToCopy = isTe
+          ? `${guide.mainMantra.sanskrit}\n\nతాత్పర్యం: ${guide.mainMantra.meaning}`
+          : `${guide.mainMantra.sanskrit}\n\n${guide.mainMantra.translit}\n\nMeaning: ${guide.mainMantra.meaning}`;
+        
+        const onCopied = () => {
+          copyBtn.classList.add('copied');
+          const btnTextEl = copyBtn.querySelector('.copy-btn-text');
+          if (btnTextEl) btnTextEl.textContent = t.copiedMantra || (isTe ? 'కాపీ అయింది!' : 'Copied!');
+          setTimeout(() => {
+            copyBtn.classList.remove('copied');
+            if (btnTextEl) btnTextEl.textContent = t.copyMantra || (isTe ? 'మంత్రం కాపీ చేయండి' : 'Copy Mantra');
+          }, 2000);
+        };
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(textToCopy).then(onCopied).catch(() => {
+            fallbackCopyText(textToCopy, onCopied);
+          });
+        } else {
+          fallbackCopyText(textToCopy, onCopied);
+        }
+      });
     }
   }
+
+  function fallbackCopyText(text, callback) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      if (callback) callback();
+    } catch (err) {
+      console.warn('Copy failed:', err);
+    }
+    document.body.removeChild(ta);
+  }
+
+  const renderDailyWisdom = renderDharmaGuide;
 
   // ---------------- Astronomical Hindu Panchangam (Strictly Bilingual) ----------------
   function renderPanchang() {
@@ -920,7 +1101,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function refreshAllViews() {
     renderPanchang();
     renderTimings();
-    renderDailyWisdom();
+    renderDharmaGuide();
     updateNewsSection(NewsHub.getCurrentData());
     updateLiveClock();
   }

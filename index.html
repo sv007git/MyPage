@@ -9,7 +9,7 @@
   <title>Prabhata • Daily Morning Page</title>
   <meta name="description" content="Personal daily morning page featuring TV9 Telugu 4 Minutes 24 Headlines news bulletin and an astronomical Hindu Panchangam (Moon phases, Waxing Shukla & Waning Krishna Paksha, Tithi, Vedic timings).">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="stylesheet" href="css/style.css?v=7.1">
+  <link rel="stylesheet" href="css/style.css?v=8.0">
 </head>
 <body>
   <div class="app-wrapper">
@@ -149,9 +149,9 @@
           </div>
         </article>
 
-        <!-- Daily Morning Wisdom / Mantra Card -->
-        <article class="card mantra-card" id="daily-mantra-card">
-          <!-- Populated by JavaScript -->
+        <!-- Daily Dharma & Worship Guide (Omkaram Style) -->
+        <article class="card dharma-guide-card" id="daily-dharma-card">
+          <!-- Populated dynamically by JavaScript -->
         </article>
 
       </div>
@@ -167,6 +167,17 @@
               <h2 id="panchang-title">Hindu Calendar & Moon Phase</h2>
             </div>
             <span class="telugu-sub" id="panchang-sub">Lunar Phase & Vedic Almanac</span>
+          </div>
+
+          <!-- Daily Observance Spotlight Banner in Panchang -->
+          <div class="panchang-observance-banner" id="panchang-observance-banner">
+            <div class="observance-badge-wrap">
+              <span class="observance-dot">✨</span>
+              <span class="observance-title-text" id="panchang-observance-title">--</span>
+            </div>
+            <a href="#daily-dharma-card" class="observance-guide-link" id="observance-guide-link">
+              <span id="observance-guide-btn-text">🕉️ Puja Guide</span> ➔
+            </a>
           </div>
 
           <!-- Moon Visualizer & Status -->
@@ -311,6 +322,7 @@
   <script src="js/panchang.js?v=8.0"></script>
   <script src="js/suncalc.js?v=8.0"></script>
   <script src="js/moon-renderer.js?v=8.0"></script>
+  <script src="js/dharma-guide.js?v=8.0"></script>
   <script src="js/news.js?v=8.0"></script>
   <script src="js/app.js?v=8.0"></script>
 </body>

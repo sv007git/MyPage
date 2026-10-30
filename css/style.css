@@ -1058,57 +1058,353 @@ body[data-lang="te"] {
   font-family: var(--font-mono);
 }
 
-/* ---------------- Daily Morning Mantra & Scratchpad ---------------- */
-.mantra-card {
+/* ---------------- Daily Dharma & Worship Guide (Omkaram Style) ---------------- */
+.dharma-guide-card {
   background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.mantra-header {
-  margin-bottom: 12px;
+.dharma-card-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 14px;
 }
 
-.mantra-badge {
+.dharma-icon {
+  font-size: 1.6rem;
+}
+
+.dharma-main-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-telugu), var(--font-main);
+}
+
+.dharma-sub-title {
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  font-weight: 500;
+  display: block;
+}
+
+/* Presiding Deity & Observance Spotlight */
+.dharma-hero-spotlight {
+  background: var(--bg-card-inner);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.dharma-hero-spotlight.special-vrata {
+  border-color: rgba(255, 180, 84, 0.4);
+  background: linear-gradient(135deg, rgba(255, 140, 66, 0.08), rgba(255, 180, 84, 0.03));
+  box-shadow: 0 4px 20px rgba(255, 140, 66, 0.06);
+}
+
+.spotlight-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.spotlight-badge {
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: rgba(255, 180, 84, 0.15);
+  color: var(--accent-gold);
+  border: 1px solid rgba(255, 180, 84, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.panchang-sub-inline {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: var(--font-telugu), var(--font-main);
+}
+
+.spotlight-deity-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 8px;
+  font-family: var(--font-telugu), var(--font-main);
+}
+
+.spotlight-reason {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-family: var(--font-telugu), var(--font-main);
+}
+
+/* Section Box Common */
+.dharma-section {
+  background: var(--bg-card-inner);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 14px;
+}
+
+.section-title-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.section-title-strip h4 {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  font-family: var(--font-telugu), var(--font-main);
+}
+
+.strip-icon {
+  font-size: 1.1rem;
+}
+
+.mantra-count-badge {
+  margin-left: auto;
   font-size: 0.74rem;
   background: rgba(255, 180, 84, 0.15);
   color: var(--accent-gold);
   padding: 2px 8px;
-  border-radius: 12px;
+  border-radius: 10px;
   font-weight: 600;
-  display: inline-block;
-  margin-bottom: 6px;
 }
 
-.mantra-title {
+/* Mantra Styling */
+.mantra-text-box {
+  margin-bottom: 12px;
+}
+
+.sacred-shlokam-text {
+  font-family: var(--font-telugu), "Nirmala UI", serif;
   font-size: 1.05rem;
-  color: var(--text-primary);
-  font-weight: 700;
-}
-
-.mantra-shlokam {
-  font-family: var(--font-telugu), var(--font-main);
-  font-size: 1.02rem;
-  line-height: 1.8;
+  line-height: 1.85;
   color: var(--accent-gold);
-  background: var(--bg-card-inner);
-  padding: 14px;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 12px 14px;
   border-radius: var(--border-radius-sm);
   border-left: 3px solid var(--accent-gold);
-  margin-bottom: 10px;
   white-space: pre-wrap;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
 
-.mantra-transliteration {
+[data-theme="light"] .sacred-shlokam-text {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.mantra-translit-text {
   font-size: 0.85rem;
   font-style: italic;
   color: var(--text-secondary);
+  line-height: 1.55;
   margin-bottom: 8px;
-  line-height: 1.5;
 }
 
-.mantra-meaning {
-  font-size: 0.85rem;
+.mantra-meaning-text {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-family: var(--font-telugu), var(--font-main);
+}
+
+.mantra-action-bar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.copy-mantra-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 180, 84, 0.12);
+  color: var(--accent-gold);
+  border: 1px solid rgba(255, 180, 84, 0.3);
+  padding: 6px 14px;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.copy-mantra-btn:hover {
+  background: var(--accent-gold);
+  color: #1a0f05;
+  border-color: var(--accent-gold);
+}
+
+.copy-mantra-btn.copied {
+  background: #2e7d32;
+  color: #fff;
+  border-color: #2e7d32;
+}
+
+/* Weekday Graha Mantra */
+.weekday-mantra-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.graha-mantra-code {
+  font-family: var(--font-telugu), var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.graha-meaning {
+  font-size: 0.82rem;
   color: var(--text-muted);
+}
+
+/* 5-Step Home Puja Grid */
+.puja-steps-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.puja-step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+}
+
+.step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 180, 84, 0.15);
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.step-content strong {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 2px;
+  font-family: var(--font-telugu), var(--font-main);
+}
+
+.step-content p {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
   line-height: 1.5;
+  margin: 0;
+  font-family: var(--font-telugu), var(--font-main);
+}
+
+/* Charity & Story & Customs */
+.charity-description,
+.puranic-story-text,
+.customs-text {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  font-family: var(--font-telugu), var(--font-main);
+}
+
+.fasting-health-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 8px;
+  line-height: 1.45;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 8px;
+  font-family: var(--font-telugu), var(--font-main);
+}
+
+.dharma-section.gentle-note {
+  padding: 8px 12px;
+}
+
+.dharma-section.gentle-note .fasting-health-note {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Panchang Observance Banner (in moon-panchang-card) */
+.panchang-observance-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(255, 140, 66, 0.12), rgba(255, 180, 84, 0.05));
+  border: 1px solid rgba(255, 180, 84, 0.28);
+  border-radius: var(--border-radius-sm);
+  padding: 8px 12px;
+  margin-bottom: 16px;
+}
+
+.observance-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.observance-dot {
+  font-size: 0.95rem;
+}
+
+.observance-title-text {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  font-family: var(--font-telugu), var(--font-main);
+}
+
+.observance-guide-link {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  background: rgba(255, 180, 84, 0.15);
+  border: 1px solid rgba(255, 180, 84, 0.3);
+  padding: 4px 10px;
+  border-radius: 12px;
+  transition: var(--transition-smooth);
+}
+
+.observance-guide-link:hover {
+  background: var(--accent-gold);
+  color: #1a0f05;
+}
+
+/* Legacy support */
+.mantra-card {
+  background: var(--bg-card);
 }
 
 /* Morning Scratchpad */
