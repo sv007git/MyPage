@@ -1,45 +1,82 @@
 {
-  "lastUpdated": "2026-10-31T04:46:52.572Z",
+  "lastUpdated": "2026-10-31T10:46:43.277Z",
   "channelTitle": "TV9 Telugu Live",
   "channelUrl": "https://www.youtube.com/@TV9TeluguLive",
   "channelId": "UCPXTXMecYqnRKNdqdVOGSFg",
   "latestBulletin": {
-    "title": "4 Minutes 24 Headlines | 9 AM | 31-10-2026 - TV9",
-    "videoId": "MpTuJFValvU",
-    "url": "https://www.youtube.com/watch?v=MpTuJFValvU",
-    "thumbnail": "https://i3.ytimg.com/vi/MpTuJFValvU/hqdefault.jpg",
-    "relativeTime": "59 min ago",
+    "title": "4 Minutes 24 Headlines | 3PM | 31-10-2026 - TV9",
+    "videoId": "YqjuDgaLevI",
+    "url": "https://www.youtube.com/watch?v=YqjuDgaLevI",
+    "publishedAt": "2026-10-31T10:01:11+00:00",
+    "thumbnail": "https://i3.ytimg.com/vi/YqjuDgaLevI/hqdefault.jpg",
     "channelTitle": "TV9 Telugu Live",
-    "isExactMatch": true,
-    "publishedAt": "2026-10-31T03:30:00.000Z"
+    "isExactMatch": true
   },
   "recentBulletins": [
+    {
+      "title": "News 100 LIVE | Speed News | News Express | 31-10-2026 - TV9",
+      "videoId": "acP0SHgSvwo",
+      "url": "https://www.youtube.com/watch?v=acP0SHgSvwo",
+      "publishedAt": "2026-10-31T10:30:15+00:00",
+      "thumbnail": "https://i3.ytimg.com/vi/acP0SHgSvwo/hqdefault.jpg",
+      "channelTitle": "TV9 Telugu Live",
+      "isExactMatch": false
+    },
+    {
+      "title": "4 Minutes 24 Headlines | 3PM | 31-10-2026 - TV9",
+      "videoId": "YqjuDgaLevI",
+      "url": "https://www.youtube.com/watch?v=YqjuDgaLevI",
+      "publishedAt": "2026-10-31T10:01:11+00:00",
+      "thumbnail": "https://i3.ytimg.com/vi/YqjuDgaLevI/hqdefault.jpg",
+      "channelTitle": "TV9 Telugu Live",
+      "isExactMatch": true
+    },
+    {
+      "title": "4 Minutes 24 Headlines - TV9",
+      "videoId": "arsTqvarHgE",
+      "url": "https://www.youtube.com/watch?v=arsTqvarHgE",
+      "thumbnail": "https://i3.ytimg.com/vi/arsTqvarHgE/hqdefault.jpg",
+      "relativeTime": "50 min ago",
+      "channelTitle": "TV9News",
+      "isExactMatch": true,
+      "publishedAt": "2026-10-31T09:56:43.277Z"
+    },
+    {
+      "title": "4 Minutes 24 Headlines | 1 PM | 31-10-2026 - TV9",
+      "videoId": "xLXGMbA1gV4",
+      "url": "https://www.youtube.com/watch?v=xLXGMbA1gV4",
+      "thumbnail": "https://i3.ytimg.com/vi/xLXGMbA1gV4/hqdefault.jpg",
+      "relativeTime": "2h ago",
+      "channelTitle": "TV9 Telugu Live",
+      "isExactMatch": true,
+      "publishedAt": "2026-10-31T07:30:00.000Z"
+    },
+    {
+      "title": "4 Minutes 24 Headlines | 12 PM | 31-10-2026 - TV9",
+      "videoId": "nAEIiUjuLjU",
+      "url": "https://www.youtube.com/watch?v=nAEIiUjuLjU",
+      "thumbnail": "https://i3.ytimg.com/vi/nAEIiUjuLjU/hqdefault.jpg",
+      "relativeTime": "3h ago",
+      "channelTitle": "TV9 Telugu Live",
+      "isExactMatch": true,
+      "publishedAt": "2026-10-31T06:30:00.000Z"
+    },
     {
       "title": "4 Minutes 24 Headlines | 9 AM | 31-10-2026 - TV9",
       "videoId": "MpTuJFValvU",
       "url": "https://www.youtube.com/watch?v=MpTuJFValvU",
       "thumbnail": "https://i3.ytimg.com/vi/MpTuJFValvU/hqdefault.jpg",
-      "relativeTime": "59 min ago",
+      "relativeTime": "6h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-10-31T03:30:00.000Z"
-    },
-    {
-      "title": "4 Minutes 24 Headlines | 8 AM | 31-10-2026 - TV9",
-      "videoId": "_Z3reJe253g",
-      "url": "https://www.youtube.com/watch?v=_Z3reJe253g",
-      "thumbnail": "https://i3.ytimg.com/vi/_Z3reJe253g/hqdefault.jpg",
-      "relativeTime": "1h ago",
-      "channelTitle": "TV9 Telugu Live",
-      "isExactMatch": true,
-      "publishedAt": "2026-10-31T02:30:00.000Z"
     },
     {
       "title": "4 Minutes 24 Headlines | 7 AM | 31-10-2026 - TV9",
       "videoId": "otbvsSJMscU",
       "url": "https://www.youtube.com/watch?v=otbvsSJMscU",
       "thumbnail": "https://i3.ytimg.com/vi/otbvsSJMscU/hqdefault.jpg",
-      "relativeTime": "2h ago",
+      "relativeTime": "8h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-10-31T01:30:00.000Z"
@@ -49,50 +86,10 @@
       "videoId": "3iqCMjg3k14",
       "url": "https://www.youtube.com/watch?v=3iqCMjg3k14",
       "thumbnail": "https://i3.ytimg.com/vi/3iqCMjg3k14/hqdefault.jpg",
-      "relativeTime": "10h ago",
+      "relativeTime": "16h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-10-30T17:30:00.000Z"
-    },
-    {
-      "title": "4 Minutes 24 Headlines - TV9",
-      "videoId": "6cWNxHtrJLo",
-      "url": "https://www.youtube.com/watch?v=6cWNxHtrJLo",
-      "thumbnail": "https://i3.ytimg.com/vi/6cWNxHtrJLo/hqdefault.jpg",
-      "relativeTime": "13h ago",
-      "channelTitle": "TV9News",
-      "isExactMatch": true,
-      "publishedAt": "2026-10-30T15:46:52.572Z"
-    },
-    {
-      "title": "4 Minutes 24 Headlines - TV9",
-      "videoId": "IqTx4DTrZmU",
-      "url": "https://www.youtube.com/watch?v=IqTx4DTrZmU",
-      "thumbnail": "https://i3.ytimg.com/vi/IqTx4DTrZmU/hqdefault.jpg",
-      "relativeTime": "17h ago",
-      "channelTitle": "TV9News",
-      "isExactMatch": true,
-      "publishedAt": "2026-10-30T11:46:52.572Z"
-    },
-    {
-      "title": "4 Minutes 24 Headlines | 1 PM | 30-10-2026 - TV9",
-      "videoId": "OtcTaXH2z78",
-      "url": "https://www.youtube.com/watch?v=OtcTaXH2z78",
-      "thumbnail": "https://i3.ytimg.com/vi/OtcTaXH2z78/hqdefault.jpg",
-      "relativeTime": "20h ago",
-      "channelTitle": "TV9 Telugu Live",
-      "isExactMatch": true,
-      "publishedAt": "2026-10-30T07:30:00.000Z"
-    },
-    {
-      "title": "4 Minutes 24 Headlines | 12 PM | 30-10-2026 - TV9",
-      "videoId": "XAAR1M5_vnw",
-      "url": "https://www.youtube.com/watch?v=XAAR1M5_vnw",
-      "thumbnail": "https://i3.ytimg.com/vi/XAAR1M5_vnw/hqdefault.jpg",
-      "relativeTime": "22h ago",
-      "channelTitle": "TV9 Telugu Live",
-      "isExactMatch": true,
-      "publishedAt": "2026-10-30T06:30:00.000Z"
     }
   ]
 }
