@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-04T20:45:28.994Z",
+  "lastUpdated": "2026-11-05T00:00:20.736Z",
   "channelTitle": "TV9 Telugu Live",
   "channelUrl": "https://www.youtube.com/@TV9TeluguLive",
   "channelId": "UCPXTXMecYqnRKNdqdVOGSFg",
@@ -8,7 +8,7 @@
     "videoId": "1nV5gXplr5k",
     "url": "https://www.youtube.com/watch?v=1nV5gXplr5k",
     "thumbnail": "https://i3.ytimg.com/vi/1nV5gXplr5k/hqdefault.jpg",
-    "relativeTime": "2h ago",
+    "relativeTime": "6h ago",
     "channelTitle": "TV9 Telugu Live",
     "isExactMatch": true,
     "publishedAt": "2026-11-04T17:30:00.000Z"
@@ -19,7 +19,7 @@
       "videoId": "1nV5gXplr5k",
       "url": "https://www.youtube.com/watch?v=1nV5gXplr5k",
       "thumbnail": "https://i3.ytimg.com/vi/1nV5gXplr5k/hqdefault.jpg",
-      "relativeTime": "2h ago",
+      "relativeTime": "6h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-04T17:30:00.000Z"
@@ -29,7 +29,7 @@
       "videoId": "vi1BlGIolV0",
       "url": "https://www.youtube.com/watch?v=vi1BlGIolV0",
       "thumbnail": "https://i3.ytimg.com/vi/vi1BlGIolV0/hqdefault.jpg",
-      "relativeTime": "5h ago",
+      "relativeTime": "8h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-04T14:30:00.000Z"
@@ -39,17 +39,27 @@
       "videoId": "D23H97C_eyU",
       "url": "https://www.youtube.com/watch?v=D23H97C_eyU",
       "thumbnail": "https://i3.ytimg.com/vi/D23H97C_eyU/hqdefault.jpg",
-      "relativeTime": "10h ago",
+      "relativeTime": "13h ago",
       "channelTitle": "TV9News",
       "isExactMatch": true,
-      "publishedAt": "2026-11-04T10:45:28.993Z"
+      "publishedAt": "2026-11-04T11:00:20.735Z"
+    },
+    {
+      "title": "4 Minutes 24 Headlines | 3 PM | 04-11-2026 - TV9",
+      "videoId": "U1LCXspqFVs",
+      "url": "https://www.youtube.com/watch?v=U1LCXspqFVs",
+      "thumbnail": "https://i3.ytimg.com/vi/U1LCXspqFVs/hqdefault.jpg",
+      "relativeTime": "13h ago",
+      "channelTitle": "TV9 Telugu Live",
+      "isExactMatch": true,
+      "publishedAt": "2026-11-04T09:30:00.000Z"
     },
     {
       "title": "4 Minutes 24 Headlines | 1 PM | 04-11-2026 - TV9",
       "videoId": "FNG27gUs1iU",
       "url": "https://www.youtube.com/watch?v=FNG27gUs1iU",
       "thumbnail": "https://i3.ytimg.com/vi/FNG27gUs1iU/hqdefault.jpg",
-      "relativeTime": "12h ago",
+      "relativeTime": "15h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-04T07:30:00.000Z"
@@ -59,7 +69,7 @@
       "videoId": "8lKIis1BU0U",
       "url": "https://www.youtube.com/watch?v=8lKIis1BU0U",
       "thumbnail": "https://i3.ytimg.com/vi/8lKIis1BU0U/hqdefault.jpg",
-      "relativeTime": "14h ago",
+      "relativeTime": "17h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-04T05:30:00.000Z"
@@ -69,7 +79,7 @@
       "videoId": "K1WYx-OqyS8",
       "url": "https://www.youtube.com/watch?v=K1WYx-OqyS8",
       "thumbnail": "https://i3.ytimg.com/vi/K1WYx-OqyS8/hqdefault.jpg",
-      "relativeTime": "16h ago",
+      "relativeTime": "19h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-04T04:30:00.000Z"
@@ -79,20 +89,10 @@
       "videoId": "mpVjuNRYyg8",
       "url": "https://www.youtube.com/watch?v=mpVjuNRYyg8",
       "thumbnail": "https://i3.ytimg.com/vi/mpVjuNRYyg8/hqdefault.jpg",
-      "relativeTime": "17h ago",
+      "relativeTime": "20h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-04T02:30:00.000Z"
-    },
-    {
-      "title": "4 Minutes 24 Headlines | 7 AM | 04-11-2026 - TV9",
-      "videoId": "UaZkIxZJIjo",
-      "url": "https://www.youtube.com/watch?v=UaZkIxZJIjo",
-      "thumbnail": "https://i3.ytimg.com/vi/UaZkIxZJIjo/hqdefault.jpg",
-      "relativeTime": "18h ago",
-      "channelTitle": "TV9 Telugu Live",
-      "isExactMatch": true,
-      "publishedAt": "2026-11-04T01:30:00.000Z"
     }
   ]
 }
