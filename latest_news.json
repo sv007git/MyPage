@@ -1,25 +1,35 @@
 {
-  "lastUpdated": "2026-11-11T12:54:24.571Z",
+  "lastUpdated": "2026-11-11T20:04:10.189Z",
   "channelTitle": "TV9 Telugu Live",
   "channelUrl": "https://www.youtube.com/@TV9TeluguLive",
   "channelId": "UCPXTXMecYqnRKNdqdVOGSFg",
   "latestBulletin": {
-    "title": "4 Minutes 24 Headlines | 4 PM | 11-11-2026 - TV9",
-    "videoId": "c8TGxXIVEqw",
-    "url": "https://www.youtube.com/watch?v=c8TGxXIVEqw",
-    "thumbnail": "https://i3.ytimg.com/vi/c8TGxXIVEqw/hqdefault.jpg",
-    "relativeTime": "2h ago",
-    "channelTitle": "TV9 Telugu Live",
+    "title": "4 Minutes 24 Headlines - TV9",
+    "videoId": "6U-zB39-lB4",
+    "url": "https://www.youtube.com/watch?v=6U-zB39-lB4",
+    "thumbnail": "https://i3.ytimg.com/vi/6U-zB39-lB4/hqdefault.jpg",
+    "relativeTime": "5h ago",
+    "channelTitle": "TV9News",
     "isExactMatch": true,
-    "publishedAt": "2026-11-11T10:30:00.000Z"
+    "publishedAt": "2026-11-11T15:04:10.189Z"
   },
   "recentBulletins": [
+    {
+      "title": "4 Minutes 24 Headlines - TV9",
+      "videoId": "6U-zB39-lB4",
+      "url": "https://www.youtube.com/watch?v=6U-zB39-lB4",
+      "thumbnail": "https://i3.ytimg.com/vi/6U-zB39-lB4/hqdefault.jpg",
+      "relativeTime": "5h ago",
+      "channelTitle": "TV9News",
+      "isExactMatch": true,
+      "publishedAt": "2026-11-11T15:04:10.189Z"
+    },
     {
       "title": "4 Minutes 24 Headlines | 4 PM | 11-11-2026 - TV9",
       "videoId": "c8TGxXIVEqw",
       "url": "https://www.youtube.com/watch?v=c8TGxXIVEqw",
       "thumbnail": "https://i3.ytimg.com/vi/c8TGxXIVEqw/hqdefault.jpg",
-      "relativeTime": "2h ago",
+      "relativeTime": "9h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-11T10:30:00.000Z"
@@ -29,7 +39,7 @@
       "videoId": "UpRjoRkG58c",
       "url": "https://www.youtube.com/watch?v=UpRjoRkG58c",
       "thumbnail": "https://i3.ytimg.com/vi/UpRjoRkG58c/hqdefault.jpg",
-      "relativeTime": "3h ago",
+      "relativeTime": "10h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-11T09:30:00.000Z"
@@ -39,7 +49,7 @@
       "videoId": "mZbaL6r19pg",
       "url": "https://www.youtube.com/watch?v=mZbaL6r19pg",
       "thumbnail": "https://i3.ytimg.com/vi/mZbaL6r19pg/hqdefault.jpg",
-      "relativeTime": "3h ago",
+      "relativeTime": "10h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-11T08:30:00.000Z"
@@ -49,7 +59,7 @@
       "videoId": "tS6RJEKBz9s",
       "url": "https://www.youtube.com/watch?v=tS6RJEKBz9s",
       "thumbnail": "https://i3.ytimg.com/vi/tS6RJEKBz9s/hqdefault.jpg",
-      "relativeTime": "6h ago",
+      "relativeTime": "13h ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-11T06:30:00.000Z"
@@ -59,7 +69,7 @@
       "videoId": "QiGnM5gy89o",
       "url": "https://www.youtube.com/watch?v=QiGnM5gy89o",
       "thumbnail": "https://i3.ytimg.com/vi/QiGnM5gy89o/hqdefault.jpg",
-      "relativeTime": "19h ago",
+      "relativeTime": "1d ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-10T17:30:00.000Z"
@@ -69,7 +79,7 @@
       "videoId": "oqz4u3HnSX4",
       "url": "https://www.youtube.com/watch?v=oqz4u3HnSX4",
       "thumbnail": "https://i3.ytimg.com/vi/oqz4u3HnSX4/hqdefault.jpg",
-      "relativeTime": "22h ago",
+      "relativeTime": "1d ago",
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-10T14:30:00.000Z"
@@ -83,16 +93,6 @@
       "channelTitle": "TV9 Telugu Live",
       "isExactMatch": true,
       "publishedAt": "2026-11-10T09:30:00.000Z"
-    },
-    {
-      "title": "4 Minutes 24 Headlines | 11 AM | 10-11-2026 - TV9",
-      "videoId": "2d1t-bcupU4",
-      "url": "https://www.youtube.com/watch?v=2d1t-bcupU4",
-      "thumbnail": "https://i3.ytimg.com/vi/2d1t-bcupU4/hqdefault.jpg",
-      "relativeTime": "1d ago",
-      "channelTitle": "TV9 Telugu Live",
-      "isExactMatch": true,
-      "publishedAt": "2026-11-10T05:30:00.000Z"
     }
   ]
 }
